@@ -19,8 +19,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
+
+# Hide SECRET_KEY
+with open('notebook/.shadow', 'r') as my_shadow_file:
+    shadow_key = my_shadow_file.read()
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-cpgld#-2(97g&wusdoz%wo0_!)&k3xqo_mg@y61@fkgpm$a@a5'
+SECRET_KEY = shadow_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,12 +36,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # standart apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # external installed apps
+    'rest-framework',
+    # created apps
+    'user.apps.UserConfig'
 ]
 
 MIDDLEWARE = [
