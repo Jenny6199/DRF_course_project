@@ -3,7 +3,7 @@ from uuid import uuid4
 from django.forms import UUIDField
 
 
-class Preson(models.Model):
+class Person(models.Model):
     """
     Класс Person
     Общая, простая модель пользователя
