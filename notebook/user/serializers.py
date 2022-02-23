@@ -1,4 +1,3 @@
-from django.forms import fields
 from rest_framework.serializers import HyperlinkedModelSerializer
 from .models import Person
 
