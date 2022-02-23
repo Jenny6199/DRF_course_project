@@ -19,7 +19,7 @@ from rest_framework.routers import DefaultRouter
 from user.views import PersonModelViewSet
 
 router = DefaultRouter()
-router.register = ('user', PersonModelViewSet)
+router.register('persons', PersonModelViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
