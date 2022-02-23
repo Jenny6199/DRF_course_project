@@ -1,3 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+from rest_framework.viewsets import ModelViewSet
+from .models import Person
+from .serializers import PersonModelSerialazer
+
+class PersonModelViewSet(ModelViewSet):
+    queryset = Person.objects.all()
+    serializer_class = PersonModelSerialazer
