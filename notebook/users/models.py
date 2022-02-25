@@ -26,6 +26,6 @@ class User(AbstractUser):
     role = models.CharField(max_length=1, choices=USER_ROLE, blank=False, help_text='Тип учетной записи')
 
     
-    def __str__(self):
-        """Return represtnting string for User"""
-        return '%s %s %s' % (self.surname, self.first_name, self.parent_name)
+#    def __str__(self):
+#        """Return represtnting string for User"""
+#        return '%s %s %s' % (self.surname, self.first_name, self.parent_name)
