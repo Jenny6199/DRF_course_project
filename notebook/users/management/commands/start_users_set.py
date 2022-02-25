@@ -7,15 +7,21 @@ class Command(BaseCommand):
     def handle(self,*args, **options):
         User.objects.create_superuser(
             username='django',
+            first_name='Django',
+            surname='Superuser',
             email='django@geekbrains.local',
             password='geekbrains',
-        )
-        User.objects.create_user(
-            first_name='Maksim',
-            parent_name='Sergeevich',
-            surname='Sapunov',
-            email='jenny6199@yandex.ru',
-            birthday='1983-08-08',
+            birthday='1970-01-01',
             is_active=True,
             role='A',
+        )
+        User.objects.create_user(
+            username='Ivanov_II',
+            first_name='Иван',
+            parent_name='Иванович',
+            surname='Иванов',
+            email='Ivan_Ivanov@example.local',
+            birthday='1987-01-01',
+            is_active=True,
+            role='M',
         )
