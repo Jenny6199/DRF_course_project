@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # installed apps
     'rest_framework',
     # created apps
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
