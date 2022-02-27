@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import UserList from './components/user';
+import axios from 'axios'
 
 class App extends React.Component {
   constructor(props) {
@@ -11,23 +12,15 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const users = [
-      {
-        'surname': 'Сапунов',
-        'first_name': 'Максим',
-        'parent_name': 'Сергеевич',
-      },
-      {
-        'surname': 'Вораксо',
-        'first_name': 'Иван',
-        'parent_name': 'Михайлович',
-      },
-    ]
-    this.setState(
-      {
-        'users': users
-      }
-    )
+    axios.get('http://127.0.0.1:8000/api/users/')
+    .then(response => {
+      const users = response.data
+        this.setState(
+          {
+            'users': users
+          }
+        )
+    }).catch(error => console.log(error))
   }
 
   render ()  {
