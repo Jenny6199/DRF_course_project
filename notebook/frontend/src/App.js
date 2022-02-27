@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import UserList from './components/user';
 
 class App extends React.Component {
   constructor(props) {
@@ -9,12 +10,30 @@ class App extends React.Component {
     }
   }
 
-  render () {
-    return(
+  componentDidMount() {
+    const users = [
+      {
+        'surname': 'Сапунов',
+        'first_name': 'Максим',
+        'parent_name': 'Сергеевич',
+      },
+      {
+        'surname': 'Вораксо',
+        'first_name': 'Иван',
+        'parent_name': 'Михайлович',
+      },
+    ]
+    this.setState(
+      {
+        'users': users
+      }
+    )
+  }
+
+  render ()  {
+    return (
       <div>
-        <h3>
-          Главное приложение
-        </h3>
+        <UserList users={this.state.users} />
       </div>
     )
   }

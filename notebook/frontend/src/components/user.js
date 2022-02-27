@@ -19,13 +19,18 @@ const UserItem = ({user}) => {
 const UserList = ({users}) => {
     return (
         <table>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-            <th>Дата рождения</th>
+            <th>
+                Фамилия
+            </th>
+            <th>
+                Имя
+            </th>
+            <th>
+                Отчество
+            </th>
             {users.map((user) => <UserItem user={user} />)}
         </table>
     )
 }
 
-export default UserList
+export default UserList;
