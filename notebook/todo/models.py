@@ -1,23 +1,15 @@
 from django.db import models
-from uuid import uuid4
 from users.models import User
 
 class Project(models.Model):
     """
     Модель проекта.
     ---------------------------------
-    id (uuid1), 
     project_name (CharField), 
     project_URL(CharField), 
     members(ManyToManyField), 
     is_active (Boolean).
     """
-    id = models.UUIDField(
-        auto_created=True, 
-        default=uuid4,
-        verbose_name='id', 
-        help_text='Идентификатор'
-    )
     project_name = models.CharField(
         max_length=64, 
         blank=False,
@@ -32,8 +24,8 @@ class Project(models.Model):
         help_text='Ссылка на репозиторий',
     )
     members = models.ManyToManyField(
-        User, 
-        null=False, 
+        User,
+        verbose_name='Участники', 
         help_text='Пользователи учавствующие в проекте'
     )
     created_at = models.DateField(
@@ -51,7 +43,6 @@ class ToDo(models.Model):
     """
     Модель заметки.
     -----------------------------------
-    id (uuid4, 
     project (ForeignKey - Project), 
     creator (one-to-one), 
     text (CharField), 
@@ -59,12 +50,6 @@ class ToDo(models.Model):
     updated_at (DateTime), 
     is_active (Boolean)
     """
-    id = models.UUIDField(
-        auto_created=True, 
-        default=uuid4,
-        verbose_name='id', 
-        help_text='Идентификатор',
-    )
     project = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
@@ -73,6 +58,7 @@ class ToDo(models.Model):
     )
     creator = models.OneToOneField(
         User,
+        on_delete=models.CASCADE,
         verbose_name='Владелец',
         help_text='Заметка создана пользователем:',
     )
