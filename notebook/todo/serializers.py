@@ -1,8 +1,8 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import HyperlinkedModelSerializer
 from .models import Project, ToDo
 
 
-class ProjectModelSerializer(ModelSerializer):
+class ProjectModelSerializer(HyperlinkedModelSerializer):
     """Сериализатор модели Project"""
     class Meta:
         model = Project
@@ -15,7 +15,7 @@ class ProjectModelSerializer(ModelSerializer):
         ]
 
 
-class ToDoModelSerializer(ModelSerializer):
+class ToDoModelSerializer(HyperlinkedModelSerializer):
     """Сериализатор модели ToDo"""
     class Meta:
         model = ToDo
