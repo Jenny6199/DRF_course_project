@@ -31,12 +31,17 @@ class Project(models.Model):
     created_at = models.DateField(
         auto_now_add=True,
         verbose_name='Дата начала проекта',
-        help_text='Дата начала проекта',
+        help_text='Старт проекта',
     )
     is_active = models.BooleanField(
         default=True, 
-        help_text='Статус проекта',
+        help_text='Снимите флажок чтобы сделать проект неактивным',
+        verbose_name='Активный статус'
         )
+
+    def __str__(self):
+        """Возвращает строковое представление проекта"""
+        return self.project_name
 
 
 class ToDo(models.Model):
@@ -59,8 +64,8 @@ class ToDo(models.Model):
     creator = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
-        verbose_name='Владелец',
-        help_text='Заметка создана пользователем:',
+        verbose_name='Автор заметки',
+        help_text='Данные пользователя создавшего заметку',
     )
     text = models.TextField(
         blank=False, 
@@ -69,16 +74,20 @@ class ToDo(models.Model):
     )
     short_description = models.CharField(
         max_length=64,
+        verbose_name='Краткое описание',
+        help_text='Здесь можно добавить хэштэги для быстрого поиска'
     )
     created_at = models.DateTimeField(
         auto_now=True,
-        verbose_name='Время создания', 
-        help_text='Время создания:'
+        verbose_name='Время создания заметки', 
+        help_text='Время создания заметки'
     )
     updated_at = models.DateTimeField(
         auto_now_add=True,  
         help_text='Последнее редактирование'
     )
     is_active = models.BooleanField(
-        default=True
+        default=True,
+        verbose_name='Заметка активна',
+        help_text='Снимите флажок, чтобы сделать заметку неактивной',
     )
