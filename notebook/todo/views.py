@@ -6,6 +6,9 @@ from .serializers import ProjectModelSerializer, ToDoModelSerializer
 from rest_framework.views import APIView
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
+# Для использования GenericAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin
 
 
 class ProjectModelViewSet(ModelViewSet):
@@ -28,3 +31,38 @@ class ProjectAPIVIew(APIView):
         projects = Project.objects.all()
         serializer = ProjectModelSerializer(projects,many=True)
         return Response(serializer.data)
+
+
+class ProjectCreateAPIView(CreateAPIView):
+    """Класс представления для создания объекта модели Project"""
+    renderer_classes = [JSONRenderer]
+    queryset = Project.objects.all()
+    serializer_class = ProjectModelSerializer
+
+
+class ProjectListAPIView(ListAPIView):
+    """Класс представления для отображения списка моделей Project"""
+    renderer_classes = [JSONRenderer]
+    queryset = Project.objects.all()
+    serializer_class = ProjectModelSerializer
+
+
+class ProjectRetrieveAPIView(RetrieveAPIView):
+    """Класс представления для отображения одного из объектов моделей Project"""
+    renderer_classes = [JSONRenderer]
+    queryset = Project.objects.all()
+    serializer_class = ProjectModelSerializer
+
+
+class ProjectUpdateAPIView(UpdateAPIView):
+    """Класс представления для редактирования одного из объектов моделей Project"""
+    renderer_classes = [JSONRenderer]
+    queryset = Project.objects.all()
+    serializer_class = ProjectModelSerializer
+
+
+class ProjectDestroyAPIView(DestroyAPIView):
+    """Класс представления для удаления одного из объектов моделей Project"""
+    renderer_classes = [JSONRenderer]
+    queryset = Project.objects.all()
+    serializer_class = ProjectModelSerializer

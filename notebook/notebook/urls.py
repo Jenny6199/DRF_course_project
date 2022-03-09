@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from todo.serializers import ProjectModelSerializer
-from todo.views import ProjectModelViewSet, ToDoModelViewSet, ProjectAPIVIew
+from todo.views import ProjectCreateAPIView, ProjectDestroyAPIView, ProjectListAPIView, ProjectModelViewSet, ProjectRetrieveAPIView, ProjectUpdateAPIView, ToDoModelViewSet, ProjectAPIVIew
 from users.views import UserModelViewSet
 
 router = DefaultRouter()
@@ -16,4 +16,10 @@ urlpatterns = [
     path('api-auth', include('rest_framework.urls')),
     path('api/', include(router.urls)),
     path('views/api-view/', ProjectAPIVIew.as_view()),
+    # generic CRUD for project
+    path('generic/project/create/', ProjectCreateAPIView.as_view()),
+    path('generic/project/list/', ProjectListAPIView.as_view()),
+    path('generic/project/retrieve/<int:pk>/', ProjectRetrieveAPIView.as_view()),
+    path('generic/project/update/<int:pk>/', ProjectUpdateAPIView.as_view()),
+    path('generic/project/delete/<int:pk>/', ProjectDestroyAPIView.as_view()),
 ]
