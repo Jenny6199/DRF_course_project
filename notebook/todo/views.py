@@ -89,3 +89,13 @@ class ProjectCustomViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixin
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
     renderer_classes = [JSONRenderer]
+
+
+class ProjectQuerysetFilterViewSet(viewsets.ModelViewSet):
+    serializer_class = ProjectModelSerializer
+    renderer_class = [JSONRenderer]
+    queryset = Project.objects.all()
+
+    def get_queryset(self):
+        """Переопределение метода get_queryset для фильтрации"""
+        return Project.objects.filter(is_active=True)
