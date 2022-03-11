@@ -8,6 +8,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     """Модель пользователя"""
     id = models.UUIDField(primary_key=True, null=False, unique=True, default=uuid4)
+    username = models.CharField(unique=True, max_length=64, verbose_name='Логин', help_text='Логин пользователя', blank=True)
     first_name = models.CharField(max_length=64, help_text='Имя', verbose_name='Имя', blank=False)
     parent_name = models.CharField(max_length=64, help_text='Отчество', verbose_name='Отчество', blank=True)
     surname = models.CharField(max_length=64, help_text='Фамилия', verbose_name='Фамилия', blank=False)

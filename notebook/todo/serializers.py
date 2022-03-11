@@ -1,4 +1,4 @@
-from rest_framework.serializers import HyperlinkedModelSerializer, StringRelatedField
+from rest_framework.serializers import HyperlinkedModelSerializer, StringRelatedField, ModelSerializer
 from .models import Project, ToDo
 
 
