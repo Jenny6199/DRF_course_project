@@ -101,6 +101,16 @@ class ProjectQuerysetFilterViewSet(viewsets.ModelViewSet):
         return Project.objects.filter(is_active=True)
 
 
+class ProjectKwargsFilterView(ListAPIView):
+    serializer_class = ProjectModelSerializer
+
+    def get_queryset(self):
+        print(self.kwargs)
+        project_name = self.kwargs['project_name']
+        print(project_name)
+        return Project.objects.filter(project_name__contains=project_name)
+
+
 class ProjectDjangoFilterViewSet(viewsets.ModelViewSet):
     """Класс представлений для отображения модели Project с фильтрацией"""
     queryset = Project.objects.all()
