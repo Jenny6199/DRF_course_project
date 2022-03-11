@@ -3,12 +3,14 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from todo.serializers import ProjectModelSerializer
 from todo.views import ProjectCreateAPIView, ProjectDestroyAPIView, ProjectListAPIView, ProjectModelViewSet, ProjectRetrieveAPIView, ProjectUpdateAPIView, ToDoModelViewSet, ProjectAPIVIew
+from todo.views import ProjectViewSet
 from users.views import UserModelViewSet
 
 router = DefaultRouter()
 router.register('users', UserModelViewSet)
 router.register('projects', ProjectModelViewSet)
 router.register('todo', ToDoModelViewSet)
+router.register('base', ProjectViewSet, basename='project')
 
 
 urlpatterns = [
@@ -22,4 +24,6 @@ urlpatterns = [
     path('generic/project/retrieve/<int:pk>/', ProjectRetrieveAPIView.as_view()),
     path('generic/project/update/<int:pk>/', ProjectUpdateAPIView.as_view()),
     path('generic/project/delete/<int:pk>/', ProjectDestroyAPIView.as_view()),
+    # ViewSets
+    path('viewsets/', include(router.urls)),
 ]
