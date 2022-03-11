@@ -8,7 +8,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 # Для использования GenericAPIView
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
-from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin
+from rest_framework import mixins
 # Для использования ViewSets
 from rest_framework import viewsets
 
@@ -83,3 +83,8 @@ class ProjectViewSet(viewsets.ViewSet):
         projects = get_object_or_404(Project, pk=pk)
         serializer = ProjectModelSerializer(projects)
         return Response(serializer.data)
+
+class ProjectCustomViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectModelSerializer
+    renderer_classes = [JSONRenderer]
