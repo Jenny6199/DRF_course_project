@@ -102,9 +102,11 @@ class ProjectQuerysetFilterViewSet(viewsets.ModelViewSet):
 
 
 class ProjectKwargsFilterView(ListAPIView):
+    """Класс представлений модели Project с реализацией фильтрации по параметрам в URL"""
     serializer_class = ProjectModelSerializer
 
     def get_queryset(self):
+        """Переопределение метода qet_queryset для фильтрации по названию проекта"""
         print(self.kwargs)
         project_name = self.kwargs['project_name']
         print(project_name)
@@ -112,10 +114,12 @@ class ProjectKwargsFilterView(ListAPIView):
 
 
 class ProjectParamFilterViewSet(viewsets.ModelViewSet):
+    """Класс представлений модели Project c реализацией фильтрации по параметрам запроса"""
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
 
     def get_queryset(self):
+        """Переопределение метода qet_queryset для фильтрации по названию проекта"""
         project_name = self.request.query_params.get('project_name', '')
         projects = Project.objects.all()
         if project_name:
