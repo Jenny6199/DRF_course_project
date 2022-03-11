@@ -84,6 +84,7 @@ class ProjectViewSet(viewsets.ViewSet):
         serializer = ProjectModelSerializer(projects)
         return Response(serializer.data)
 
+
 class ProjectCustomViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer

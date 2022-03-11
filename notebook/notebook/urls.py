@@ -2,13 +2,14 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from todo.serializers import ProjectModelSerializer
-from todo.views import ProjectCreateAPIView, ProjectDestroyAPIView, ProjectListAPIView, ProjectModelViewSet, ProjectRetrieveAPIView, ProjectUpdateAPIView, ToDoModelViewSet, ProjectAPIVIew
+from todo.views import ProjectCreateAPIView, ProjectCustomViewSet, ProjectDestroyAPIView, ProjectListAPIView, ProjectModelViewSet, ProjectRetrieveAPIView, ProjectUpdateAPIView, ToDoModelViewSet, ProjectAPIVIew
 from todo.views import ProjectViewSet
 from users.views import UserModelViewSet
 
 router = DefaultRouter()
 router.register('users', UserModelViewSet)
 router.register('projects', ProjectModelViewSet)
+router.register('project_custom', ProjectCustomViewSet)
 router.register('todo', ToDoModelViewSet)
 router.register('base', ProjectViewSet, basename='project')
 
