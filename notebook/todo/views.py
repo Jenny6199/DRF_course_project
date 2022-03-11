@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from rest_framework.viewsets import ModelViewSet
 from .models import Project, ToDo
 from .serializers import ProjectModelSerializer, ToDoModelSerializer
@@ -9,6 +9,8 @@ from rest_framework.response import Response
 # Для использования GenericAPIView
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin
+# Для использования ViewSets
+from rest_framework import viewsets
 
 
 class ProjectModelViewSet(ModelViewSet):
@@ -66,3 +68,18 @@ class ProjectDestroyAPIView(DestroyAPIView):
     renderer_classes = [JSONRenderer]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
+
+
+class ProjectViewSet(viewsets.ViewSet):
+    """Класс набор представлений для моделей Project"""
+    renderer_classes = [JSONRenderer]
+
+    def list(self, request):
+        projects = Project.objects.all()
+        serializer = ProjectModelSerializer(projects, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        projects = get_object_or_404(Project, pk=pk)
+        serializer = ProjectModelSerializer(projects)
+        return Response(serializer.data)
