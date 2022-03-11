@@ -99,3 +99,10 @@ class ProjectQuerysetFilterViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """Переопределение метода get_queryset для фильтрации"""
         return Project.objects.filter(is_active=True)
+
+
+class ProjectDjangoFilterViewSet(viewsets.ModelViewSet):
+    """Класс представлений для отображения модели Project с фильтрацией"""
+    queryset = Project.objects.all()
+    serializer_class = ProjectModelSerializer
+    filterset_fields = ['is_active']
