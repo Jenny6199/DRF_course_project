@@ -141,14 +141,19 @@ class ProjectDjangoFilterViewSet(viewsets.ModelViewSet):
 
 
 
-# LimitOffsetPagination
+# PAGINATION
 
 
 class ProjectLimitOffsetPagination(LimitOffsetPagination):
+    """
+    Класс содержит настройки LimitOfsetPagination, для дальнейшей
+    реализации пагинатора в наборе представлений.
+    """
     default_limit = 2
 
 
 class ProjectLimitOffsetPaginationViewSet(viewsets.ModelViewSet):
+    """Класс набора представлений для модели Project с реализацией пагинатора """
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
     pagination_class = ProjectLimitOffsetPagination

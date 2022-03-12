@@ -8,17 +8,17 @@ from users.views import UserModelViewSet
 
 router = DefaultRouter()
 router.register('users', UserModelViewSet)
-router.register('projects', ProjectModelViewSet)
+router.register('projects', ProjectLimitOffsetPaginationViewSet)
 router.register('todo', ToDoModelViewSet)
 
 # router.register('projects', ProjectQuerysetFilterViewSet)
 # router.register('projects', ProjectDjangoFilterViewSet)
 # router.register('project_custom', ProjectCustomViewSet)
 # router.register('base', ProjectViewSet, basename='project')
-router.register('projects/paginator', ProjectLimitOffsetPaginationViewSet)
+# router.register('projects/paginator', ProjectLimitOffsetPaginationViewSet)
 
 filter_router = DefaultRouter()
-filter_router.register('param', ProjectParamFilterViewSet)
+# filter_router.register('param', ProjectParamFilterViewSet)
 
 
 urlpatterns = [
@@ -39,5 +39,5 @@ urlpatterns = [
 
     # Filtrations
     path('viewsets/projects/filter/kwargs/<str:project_name>/', ProjectKwargsFilterView.as_view()),
-    # path('filters/', include(filter_router.urls)),
+    path('filters/', include(filter_router.urls)),
 ]
