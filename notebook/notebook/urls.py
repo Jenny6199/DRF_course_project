@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from todo.serializers import ProjectModelSerializer
-from todo.views import ProjectCreateAPIView, ProjectCustomViewSet, ProjectDestroyAPIView, ProjectDjangoFilterViewSet, ProjectKwargsFilterView, ProjectLimitOffsetPaginationViewSet, ProjectListAPIView, ProjectModelViewSet, ProjectParamFilterViewSet, ProjectQuerysetFilterViewSet, ProjectRetrieveAPIView, ProjectUpdateAPIView, ToDoModelViewSet, ProjectAPIVIew
+from todo.views import ProjectCreateAPIView, ProjectCustomViewSet, ProjectDestroyAPIView, ProjectDjangoFilterViewSet, ProjectKwargsFilterView, ProjectLimitOffsetPaginationViewSet, ProjectListAPIView, ProjectParamFilterViewSet, ProjectQuerysetFilterViewSet, ProjectRetrieveAPIView, ProjectUpdateAPIView, ToDoModelViewSet, ProjectAPIVIew
 from todo.views import ProjectViewSet
 from users.views import UserModelViewSet
 
@@ -35,7 +35,7 @@ urlpatterns = [
     path('generic/project/delete/<int:pk>/', ProjectDestroyAPIView.as_view()),
 
     # Use ViewSets
-    path('viewsets/', include(router.urls)),
+    # path('viewsets/', include(router.urls)),
 
     # Filtrations
     path('viewsets/projects/filter/kwargs/<str:project_name>/', ProjectKwargsFilterView.as_view()),

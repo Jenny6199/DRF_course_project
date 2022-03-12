@@ -19,10 +19,10 @@ from rest_framework.pagination import LimitOffsetPagination
 # Запросы
 
 
-class ProjectModelViewSet(ModelViewSet):
-    """Класс представлений для модели Project"""
-    queryset = Project.objects.all()
-    serializer_class = ProjectModelSerializer
+# class ProjectModelViewSet(ModelViewSet):
+#    """Класс представлений для модели Project"""
+#    queryset = Project.objects.all()
+#    serializer_class = ProjectModelSerializer
 
 
 class ToDoModelViewSet(ModelViewSet):
@@ -153,7 +153,10 @@ class ProjectLimitOffsetPagination(LimitOffsetPagination):
 
 
 class ProjectLimitOffsetPaginationViewSet(viewsets.ModelViewSet):
-    """Класс набора представлений для модели Project с реализацией пагинатора """
+    """
+    Класс набора представлений для модели Project с реализацией пагинатора.
+    Для настройки пагинатора используйте limit=, offset= в параметрах запроса.
+    """
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
     pagination_class = ProjectLimitOffsetPagination

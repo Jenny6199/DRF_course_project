@@ -91,3 +91,8 @@ class ToDo(models.Model):
         verbose_name='Заметка активна',
         help_text='Снимите флажок, чтобы сделать заметку неактивной',
     )
+        
+    def __str__(self):
+        """Возвращает строковое представление заметки"""
+        return self.short_description
+        
