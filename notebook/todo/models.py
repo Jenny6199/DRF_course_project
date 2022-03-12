@@ -49,7 +49,7 @@ class ToDo(models.Model):
     Модель заметки.
     -----------------------------------
     project (ForeignKey - Project), 
-    creator (one-to-one), 
+    creator (ForeignKey - User), 
     text (CharField), 
     created_at (DateTime), 
     updated_at (DateTime), 
