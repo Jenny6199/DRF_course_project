@@ -18,6 +18,7 @@ class ProjectModelSerializer(HyperlinkedModelSerializer):
 
 class ToDoModelSerializer(HyperlinkedModelSerializer):
     """Сериализатор модели ToDo"""
+    creator = StringRelatedField(many=False)
     class Meta:
         model = ToDo
         fields = [
