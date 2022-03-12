@@ -1,16 +1,22 @@
 from django.shortcuts import get_object_or_404, render
-from rest_framework.viewsets import ModelViewSet
+
+# Mодели
 from .models import Project, ToDo
+# Сериализаторы моделей
 from .serializers import ProjectModelSerializer, ToDoModelSerializer
-# Для использования APIView
+# Использование APIView
 from rest_framework.views import APIView
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
-# Для использования GenericAPIView
+# Использование GenericAPIView
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework import mixins
-# Для использования ViewSets
+# Использование набора представлений (ViewSets)
 from rest_framework import viewsets
+from rest_framework.viewsets import ModelViewSet
+# Постраничный вывод (Pagination)
+from rest_framework.pagination import LimitOffsetPagination
+# Запросы
 
 
 class ProjectModelViewSet(ModelViewSet):
@@ -132,3 +138,17 @@ class ProjectDjangoFilterViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
     filterset_fields = ['is_active']
+
+
+
+# LimitOffsetPagination
+
+
+class ProjectLimitOffsetPagination(LimitOffsetPagination):
+    default_limit = 2
+
+
+class ProjectLimitOffsetPaginationViewSet(viewsets.ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectModelSerializer
+    pagination_class = ProjectLimitOffsetPagination

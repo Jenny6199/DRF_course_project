@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from todo.serializers import ProjectModelSerializer
-from todo.views import ProjectCreateAPIView, ProjectCustomViewSet, ProjectDestroyAPIView, ProjectDjangoFilterViewSet, ProjectKwargsFilterView, ProjectListAPIView, ProjectModelViewSet, ProjectParamFilterViewSet, ProjectQuerysetFilterViewSet, ProjectRetrieveAPIView, ProjectUpdateAPIView, ToDoModelViewSet, ProjectAPIVIew
+from todo.views import ProjectCreateAPIView, ProjectCustomViewSet, ProjectDestroyAPIView, ProjectDjangoFilterViewSet, ProjectKwargsFilterView, ProjectLimitOffsetPaginationViewSet, ProjectListAPIView, ProjectModelViewSet, ProjectParamFilterViewSet, ProjectQuerysetFilterViewSet, ProjectRetrieveAPIView, ProjectUpdateAPIView, ToDoModelViewSet, ProjectAPIVIew
 from todo.views import ProjectViewSet
 from users.views import UserModelViewSet
 
@@ -15,6 +15,7 @@ router.register('todo', ToDoModelViewSet)
 # router.register('projects', ProjectDjangoFilterViewSet)
 # router.register('project_custom', ProjectCustomViewSet)
 # router.register('base', ProjectViewSet, basename='project')
+router.register('projects/paginator', ProjectLimitOffsetPaginationViewSet)
 
 filter_router = DefaultRouter()
 filter_router.register('param', ProjectParamFilterViewSet)
@@ -38,5 +39,5 @@ urlpatterns = [
 
     # Filtrations
     path('viewsets/projects/filter/kwargs/<str:project_name>/', ProjectKwargsFilterView.as_view()),
-    path('filters/', include(filter_router.urls)),
+    # path('filters/', include(filter_router.urls)),
 ]
