@@ -4,10 +4,10 @@ from rest_framework.routers import DefaultRouter
 from todo.serializers import ProjectModelSerializer
 from todo.views import ProjectCreateAPIView, ProjectCustomViewSet, ProjectDestroyAPIView, ProjectDjangoFilterViewSet, ProjectKwargsFilterView, ProjectLimitOffsetPaginationViewSet, ProjectListAPIView, ProjectParamFilterViewSet, ProjectQuerysetFilterViewSet, ProjectRetrieveAPIView, ProjectUpdateAPIView, ToDoModelViewSet, ProjectAPIVIew
 from todo.views import ProjectViewSet
-from users.views import UserModelViewSet
+from users.views import UserSpecialViewSet
 
 router = DefaultRouter()
-router.register('users', UserModelViewSet)
+router.register('users', UserSpecialViewSet)
 router.register('projects', ProjectLimitOffsetPaginationViewSet)
 router.register('todo', ToDoModelViewSet)
 
