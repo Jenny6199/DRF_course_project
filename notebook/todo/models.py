@@ -61,7 +61,7 @@ class ToDo(models.Model):
         verbose_name='Проект',
         help_text='Заметка в составе проекта',
     )
-    creator = models.OneToOneField(
+    creator = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         verbose_name='Автор заметки',
@@ -95,4 +95,3 @@ class ToDo(models.Model):
     def __str__(self):
         """Возвращает строковое представление заметки"""
         return self.short_description
-        
