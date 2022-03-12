@@ -126,8 +126,9 @@ class ProjectParamFilterViewSet(viewsets.ModelViewSet):
             projects = projects.filter(project_name__contains=project_name)
         return projects
 
+
 class ProjectDjangoFilterViewSet(viewsets.ModelViewSet):
-    """Класс представлений для отображения модели Project с фильтрацией"""
+    """Класс представлений для отображения модели Project с фильтрацией по подю is_active"""
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
     filterset_fields = ['is_active']
