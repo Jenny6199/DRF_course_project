@@ -7,7 +7,7 @@ from todo.views import ProjectViewSet
 from users.views import UserSpecialViewSet
 
 router = DefaultRouter()
-router.register('users', UserSpecialViewSet)
+router.register('users', UserSpecialViewSet, basename='users')
 router.register('projects', ProjectLimitOffsetPaginationViewSet)
 router.register('todo', ToDoModelViewSet)
 

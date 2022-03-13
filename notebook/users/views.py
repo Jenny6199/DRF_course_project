@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework import viewsets
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
+from rest_framework.response import Response
 from .models import User
 from .serializers import UserModelSerializer
+from django.shortcuts import get_object_or_404
 
 
 class UserLimitOffsetPagination(LimitOffsetPagination):
@@ -15,17 +17,18 @@ class UserLimitOffsetPagination(LimitOffsetPagination):
     default_limit = 3
 
 class UserSpecialViewSet(
-    GenericViewSet,  
+    viewsets.GenericViewSet,  
     ListModelMixin, 
     RetrieveModelMixin, 
     UpdateModelMixin
     ):
     """
-    Класс серии представлений для модели User c реализацией пагинатора.
-    Для настройки пагинатора используйте параметры limit= и offset=.
-    Для выборки пользователей по логину доступна фильтрация в параметрах запроса.
+    Класс серии представлений для модели User c реализацией пагинатора и фильтрации.
     Класс позволяет просматривать список пользователей, отдельную запись, позволяет вносить изменения в запись.
-    Удаление и создание новых пользователей запрещены.
+    Удаление и создание новых пользователей запрещены.    
+    Для настройки пагинатора используйте параметры limit= и offset= (например ?limit=3&offset=3).
+    Для фильтрации пользователей по должности используйте параметры запроса (например ?role=M - список менеджеров).
+    Для просмотра отдельной записи пользователя добавьте UUID пользователя в URL.
     """
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = User.objects.all()
@@ -35,10 +38,16 @@ class UserSpecialViewSet(
     def get_queryset(self):
         """
         Переопределение метода для реализации возможности фильтрации
-        по логину пользователя.
+        по должности пользователя.
         """
-        param = self.request.query_params.get('login', '')
+        param = self.request.query_params.get('role', '')
         users = User.objects.all()
         if param:
-            users = users.filter(username__contains=param)
+            users = users.filter(role__contains=param)
         return users
+    
+    def retrieve(self, request, pk=None):
+        """Метод позволяет получить доступ к записи пользователя по его UUID"""
+        user = get_object_or_404(User, pk=pk)
+        serializer = UserModelSerializer(user)
+        return Response(serializer.data)
