@@ -161,15 +161,19 @@ class ProjectSpecialViewSet(
     mixins.DestroyModelMixin):
     """
     Класс набора представлений для модели Project с реализацией пагинатора.
-    Доступны запросы GET, POST, PUT, PATCH, DELETE.
-    Для обращения к конкретной записи используйте ее id в URL (например /projects/1/)
-    Для настройки пагинатора используйте limit=, offset= в параметрах запроса (например ?limit=3&offset=3, стандартное значение-10).
-    Для использования фильтрации введите часть названия проекта в параметрах запроса (например ?project_name=разраб)
+    Доступны запросы POST, GET, PUT, DELETE.
+    Для обращения к конкретной записи используйте запрос с конкретным id в URL.
+    (например  DELETE api/projects/7/)
+    Для настройки пагинатора используйте limit=, offset= в параметрах запроса.
+    (например ?limit=3&offset=3, стандартное значение-10).
+    Для использования фильтра введите часть названия проекта в параметрах запроса.
+    (например ?project_name=разраб)
     """
     renderer_class = [JSONRenderer]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
     pagination_class = ProjectLimitOffsetPagination
+    filterset_fields = ['is_active', 'members',]
 
     def get_queryset(self):
         """

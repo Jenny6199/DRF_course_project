@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # installed apps
     'rest_framework',
     'corsheaders',
+    'django_filters',
     # created apps
     'users.apps.UsersConfig',
     'todo.apps.TodoConfig',
