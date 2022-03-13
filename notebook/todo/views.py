@@ -9,17 +9,35 @@ from rest_framework import mixins
 from rest_framework.pagination import LimitOffsetPagination
 # Запросы
 from django.shortcuts import get_object_or_404, render
-from rest_framework.renderers import JSONRenderer
+from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 
 
 # TODO_VIEWSET
 
 
-class ToDoModelViewSet(viewsets.ModelViewSet):
-    """Класс представлений для модели ToDo"""
+class ToDoLimitOffsetPagination(LimitOffsetPagination):
+    """
+    Класс содержит настройки LimitOfsetPagination, для дальнейшей
+    реализации пагинатора в наборе представлений.
+    """
+    default_limit = 20
+
+
+class ToDoSpecialViewSet(
+    viewsets.GenericViewSet,
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    mixins.ListModelMixin):
+    """
+    Класс набора представлений для модели ToDo c реализацией фильтрации и пагинатора.
+    """
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = ToDo.objects.all()
     serializer_class = ToDoModelSerializer
-
+    pagination_class = ToDoLimitOffsetPagination
+    filterset_fields = ['is_active', 'project']
 
 
 # PROJECT_VIEWSET
@@ -50,7 +68,7 @@ class ProjectSpecialViewSet(
     Для использования фильтра введите часть названия проекта в параметрах запроса.
     (например ?project_name=разраб)
     """
-    renderer_class = [JSONRenderer]
+    renderer_class = [JSONRenderer, BrowsableAPIRenderer]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
     pagination_class = ProjectLimitOffsetPagination

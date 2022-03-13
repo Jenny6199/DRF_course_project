@@ -1,13 +1,13 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from todo.views import ProjectSpecialViewSet,ToDoModelViewSet
+from todo.views import ProjectSpecialViewSet,ToDoSpecialViewSet
 from users.views import UserSpecialViewSet
 
 router = DefaultRouter()
 router.register('users', UserSpecialViewSet, basename='users')
 router.register('projects', ProjectSpecialViewSet, basename='projects')
-router.register('todo', ToDoModelViewSet)
+router.register('todo', ToDoSpecialViewSet, basename='todo')
 
 
 urlpatterns = [
