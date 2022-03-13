@@ -141,7 +141,7 @@ class ProjectDjangoFilterViewSet(viewsets.ModelViewSet):
 
 
 
-# PAGINATION
+# RESULT
 
 
 class ProjectLimitOffsetPagination(LimitOffsetPagination):
@@ -149,14 +149,35 @@ class ProjectLimitOffsetPagination(LimitOffsetPagination):
     Класс содержит настройки LimitOfsetPagination, для дальнейшей
     реализации пагинатора в наборе представлений.
     """
-    default_limit = 2
+    default_limit = 10
 
 
-class ProjectLimitOffsetPaginationViewSet(viewsets.ModelViewSet):
+class ProjectSpecialViewSet(
+    viewsets.GenericViewSet, 
+    mixins.ListModelMixin, 
+    mixins.CreateModelMixin, 
+    mixins.UpdateModelMixin, 
+    mixins.RetrieveModelMixin, 
+    mixins.DestroyModelMixin):
     """
     Класс набора представлений для модели Project с реализацией пагинатора.
-    Для настройки пагинатора используйте limit=, offset= в параметрах запроса.
+    Доступны запросы GET, POST, PUT, PATCH, DELETE.
+    Для обращения к конкретной записи используйте ее id в URL (например /projects/1/)
+    Для настройки пагинатора используйте limit=, offset= в параметрах запроса (например ?limit=3&offset=3, стандартное значение-10).
+    Для использования фильтрации введите часть названия проекта в параметрах запроса (например ?project_name=разраб)
     """
+    renderer_class = [JSONRenderer]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
     pagination_class = ProjectLimitOffsetPagination
+
+    def get_queryset(self):
+        """
+        Переопределение метода для реализации возможности фильтрации
+        по названию проекта.
+        """
+        param = self.request.query_params.get('project_name', '')
+        projects = Project.objects.all()
+        if param:
+            projects = projects.filter(project_name__contains=param)
+        return projects
