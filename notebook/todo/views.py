@@ -2,6 +2,7 @@
 from .models import Project, ToDo
 # Сериализаторы моделей
 from .serializers import ProjectModelSerializer, ToDoModelSerializer
+from rest_framework.serializers import ModelSerializer
 # Использование набора представлений (ViewSets)
 from rest_framework import viewsets
 from rest_framework import mixins
@@ -10,6 +11,7 @@ from rest_framework.pagination import LimitOffsetPagination
 # Запросы
 from django.shortcuts import get_object_or_404, render
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
+from rest_framework.response import Response
 
 
 # TODO_VIEWSET
@@ -26,18 +28,38 @@ class ToDoLimitOffsetPagination(LimitOffsetPagination):
 class ToDoSpecialViewSet(
     viewsets.GenericViewSet,
     mixins.CreateModelMixin,
-    mixins.RetrieveModelMixin,
+    # mixins.RetrieveModelMixin,
     mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
     mixins.ListModelMixin):
     """
     Класс набора представлений для модели ToDo c реализацией фильтрации и пагинатора.
+
     """
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = ToDo.objects.all()
     serializer_class = ToDoModelSerializer
     pagination_class = ToDoLimitOffsetPagination
     filterset_fields = ['is_active', 'project']
+
+    def destroy(self, request, pk=None, *args, **kwargs):
+        object = get_object_or_404(ToDo, pk=pk)
+        object.is_active = False
+        object.save()
+        serializer = ToDoModelSerializer(object)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None, *args, **kwargs):
+        object = get_object_or_404(ToDo, pk=pk)
+        serializer = ToDoModelSerializer(object)
+        return  Response(serializer.data)
+    
+    def create(self, request, *args, **kwargs):
+        serializer = ModelSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    
+
 
 
 # PROJECT_VIEWSET
