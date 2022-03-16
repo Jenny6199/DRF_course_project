@@ -28,7 +28,6 @@ class ToDoLimitOffsetPagination(LimitOffsetPagination):
 class ToDoSpecialViewSet(
     viewsets.GenericViewSet,
     mixins.CreateModelMixin,
-    # mixins.RetrieveModelMixin,
     mixins.UpdateModelMixin,
     mixins.ListModelMixin):
     """
@@ -42,21 +41,34 @@ class ToDoSpecialViewSet(
     filterset_fields = ['is_active', 'project']
 
     def destroy(self, request, pk=None, *args, **kwargs):
+        """
+        Переопределение метода удаления записи ToDo - при запросе
+        на удаление изменяется параметр is_active, запись в базе
+        данных не удаляется.
+        """
         object = get_object_or_404(ToDo, pk=pk)
         object.is_active = False
         object.save()
         serializer = ToDoModelSerializer(object)
+        print(f'Заметка более неактивна id={pk}.')
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None, *args, **kwargs):
+        """Переопределение метода для обновления записи ToDo"""
         object = get_object_or_404(ToDo, pk=pk)
         serializer = ToDoModelSerializer(object)
+        print(f'Обновление данных заметки id={pk}.')
         return  Response(serializer.data)
     
     def create(self, request, *args, **kwargs):
-        serializer = ModelSerializer(data=request.data)
+        """ 
+        Переопределение метода создания записи ToDo.
+        Используется ToDoModelSerializer.
+        """
+        serializer = ToDoModelSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        print('Новая заметка ToDo создана и успешно сохранена') 
         return Response(serializer.data)
     
 
