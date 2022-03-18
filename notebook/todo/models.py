@@ -40,7 +40,6 @@ class Project(models.Model):
         verbose_name='Активный статус'
         )
 
-
     class Meta:
         verbose_name = 'Проект'
         verbose_name_plural = 'Проекты'

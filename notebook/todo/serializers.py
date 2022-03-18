@@ -3,9 +3,10 @@ from .models import Project, ToDo
 from users.serializers import UserModelSerializer
 
 
-class ProjectModelSerializer(HyperlinkedModelSerializer):
+class ProjectModelSerializer(ModelSerializer):
     """Сериализатор модели Project"""
-    members = StringRelatedField(many=True)
+    # members = StringRelatedField(many=True)
+    members = UserModelSerializer
     class Meta:
         model = Project
         fields = [
