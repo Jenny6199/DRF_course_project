@@ -2,10 +2,8 @@ import React from 'react';
 import './App.css';
 import UserList from './components/user';
 import MainMenu from './components/menu';
-import Footer from './components/footer';
 import axios from 'axios'
 import PageFooter from './components/footer';
-import default_footer from './components/footer';
 
 class App extends React.Component {
   constructor(props) {
@@ -31,9 +29,7 @@ class App extends React.Component {
     return (
       <div>
         <MainMenu />
-
         <UserList users={this.state.users} />
-
         <PageFooter />
       </div>
     )
