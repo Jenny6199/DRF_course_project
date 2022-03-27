@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
-import Users from './components/user';
 import MainMenu from './components/menu';
+import Users from './components/user';
+import Projects from './components/project';
 import ToDo from './components/todo';
 import PageFooter from './components/footer';
-import axios from 'axios';
+
 
 class App extends React.Component {
   render ()  {
@@ -12,6 +13,7 @@ class App extends React.Component {
       <div>
         <MainMenu />
         <Users/>
+        <Projects />
         <ToDo />
         <PageFooter />
       </div>
