@@ -5,8 +5,8 @@ from users.serializers import UserModelSerializer
 
 class ProjectModelSerializer(ModelSerializer):
     """Сериализатор модели Project"""
-    # members = StringRelatedField(many=True)
-    members = UserModelSerializer
+    members = StringRelatedField(many=True)
+    # members = UserModelSerializer
     class Meta:
         model = Project
         fields = [
@@ -21,10 +21,10 @@ class ProjectModelSerializer(ModelSerializer):
 
 class ToDoModelSerializer(ModelSerializer):
     """Сериализатор модели ToDo"""
-    project = ProjectModelSerializer
-    creator = UserModelSerializer
-    # project = StringRelatedField(many=False)
-    # creator = StringRelatedField(many=False)
+    # project = ProjectModelSerializer
+    # creator = UserModelSerializer
+    project = StringRelatedField(many=False)
+    creator = StringRelatedField(many=False)
     class Meta:
         model = ToDo
         fields = [
