@@ -1,24 +1,43 @@
-import React from 'react'
-import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom'
+import React from 'react';
+import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
+import Projects from './project';
+import Users from './user';
+import ToDo from './todo';
 
+const NotFound404 =({ location }) => {
+    return (
+      <div>
+        <h3>Страница по адресу '{location.pathname}' не найдена.</h3>
+      </div>
+    )
+  }
 
 const MainMenu = () => {
     return (
         <div>
+            <h3>Главное меню</h3>
             <BrowserRouter>
                 <nav>
                     <ul>
                         <li>
-                            <h5>Главная</h5>
+                            <Link to='/projects'>Проекты</Link>
                         </li>
                         <li>
                             <Link to='/users'>Пользователи</Link>
                         </li>
                         <li>
-                            <h5>Контакты</h5>
+                            <Link to='/todo'>Заметки</Link>
                         </li>
                     </ul>
                 </nav>
+                <hr></hr>
+                <Switch>
+                    <Route exact path='/users' component={() => <Users />} />
+                    <Route exact path='/projects' component={() => <Projects />} />
+                    <Route exact path='/todo' component={() => <ToDo />} />
+                    <Route component={NotFound404} />
+                    <Redirect from='/' to='/users' />
+                </Switch>
             </BrowserRouter>
         </div>
     )
