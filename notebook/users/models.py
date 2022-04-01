@@ -73,7 +73,8 @@ class User(AbstractUser):
         max_length=1, 
         choices=USER_ROLE, 
         blank=False, 
-        help_text='Тип учетной записи'
+        help_text='Тип учетной записи',
+        verbose_name='Тип учетной записи'
     )
 
     class Meta:
