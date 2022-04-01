@@ -18,13 +18,13 @@ class User(AbstractUser):
         max_length=64, 
         verbose_name='Логин', 
         help_text='Логин пользователя', 
-        blank=True
+        blank=False
     )
     first_name = models.CharField(
         max_length=64, 
         help_text='Имя', 
         verbose_name='Имя', 
-        blank=False
+        blank=True
     )
     parent_name = models.CharField(
         max_length=64, 
@@ -36,7 +36,7 @@ class User(AbstractUser):
         max_length=64, 
         help_text='Фамилия', 
         verbose_name='Фамилия', 
-        blank=False
+        blank=True
     )
     email = models.EmailField(
         unique=True, 
@@ -45,7 +45,8 @@ class User(AbstractUser):
     )
     birthday = models.DateField(
         help_text='Дата рождения', 
-        verbose_name='Дата рождения'
+        verbose_name='Дата рождения',
+        blank=True
     )
     is_active = models.BooleanField(
         help_text='Статус', 
