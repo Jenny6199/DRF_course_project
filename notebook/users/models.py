@@ -3,6 +3,7 @@ from random import choices
 from django.db import models
 from uuid import uuid4
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
 
 
 class User(AbstractUser):
@@ -86,3 +87,7 @@ class User(AbstractUser):
     def __str__(self):
         """Return represtnting string for User"""
         return '%s %s %s' % (self.surname, self.first_name, self.parent_name)
+
+    def get_absolute_url(self):
+        return reverse('api/users/', kwargs={'pk': self.pk})
+    
