@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # installed apps
     'rest_framework',
-    'rest_framework.authtoken',    
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',   
     'corsheaders',
     'django_filters',
     # created apps
@@ -159,5 +160,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ]
 }
