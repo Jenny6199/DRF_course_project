@@ -3,6 +3,7 @@ from random import choices
 from django.db import models
 from uuid import uuid4
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
 
 
 class User(AbstractUser):
@@ -18,13 +19,13 @@ class User(AbstractUser):
         max_length=64, 
         verbose_name='Логин', 
         help_text='Логин пользователя', 
-        blank=True
+        blank=False
     )
     first_name = models.CharField(
         max_length=64, 
         help_text='Имя', 
         verbose_name='Имя', 
-        blank=False
+        blank=True
     )
     parent_name = models.CharField(
         max_length=64, 
@@ -36,7 +37,7 @@ class User(AbstractUser):
         max_length=64, 
         help_text='Фамилия', 
         verbose_name='Фамилия', 
-        blank=False
+        blank=True
     )
     email = models.EmailField(
         unique=True, 
@@ -45,7 +46,8 @@ class User(AbstractUser):
     )
     birthday = models.DateField(
         help_text='Дата рождения', 
-        verbose_name='Дата рождения'
+        verbose_name='Дата рождения',
+        blank=True
     )
     is_active = models.BooleanField(
         help_text='Статус', 
@@ -73,7 +75,8 @@ class User(AbstractUser):
         max_length=1, 
         choices=USER_ROLE, 
         blank=False, 
-        help_text='Тип учетной записи'
+        help_text='Тип учетной записи',
+        verbose_name='Тип учетной записи'
     )
 
     class Meta:
@@ -84,3 +87,7 @@ class User(AbstractUser):
     def __str__(self):
         """Return represtnting string for User"""
         return '%s %s %s' % (self.surname, self.first_name, self.parent_name)
+
+    def get_absolute_url(self):
+        return reverse('api/users/', kwargs={'pk': self.pk})
+    

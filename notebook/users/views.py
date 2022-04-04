@@ -4,6 +4,7 @@ from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateMode
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
+from rest_framework.permissions import IsAdminUser
 from .models import User
 from .serializers import UserModelSerializer
 from django.shortcuts import get_object_or_404
@@ -30,6 +31,7 @@ class UserSpecialViewSet(
     Для фильтрации пользователей по должности используйте параметры запроса (например ?role=M - список менеджеров).
     Для просмотра отдельной записи пользователя добавьте UUID пользователя в URL.
     """
+    permission_classes = [IsAdminUser]
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
