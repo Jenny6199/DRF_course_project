@@ -5,6 +5,7 @@ class LoginForm extends React.Component {
         super(props)
         this.state = {login: '', password: ''}
     }
+    
     handleChange(event) {
         this.setState(
             {

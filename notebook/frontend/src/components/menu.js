@@ -17,28 +17,28 @@ const MainMenu = () => {
         <div>
             <h3>Главное меню</h3>
             <BrowserRouter>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to='/projects'>Проекты</Link>
-                        </li>
-                        <li>
-                            <Link to='/users'>Пользователи</Link>
-                        </li>
-                        <li>
-                            <Link to='/todo'>Заметки</Link>
-                        </li>
-                    </ul>
-                </nav>
-                <hr></hr>
-                <Switch>
-                    <Route exact path='/users' component={() => <Users />} />
-                    <Route exact path='/projects' component={() => <Projects />} />
-                    <Route exact path='/todo' component={() => <ToDo />} />
-                    <Route component={NotFound404} />
-                    <Redirect from='/' to='/users' />
-                </Switch>
-            </BrowserRouter>
+          <nav>
+            <ul>
+              <li>
+                <Link to='/users/'>Пользователи</Link>
+              </li>
+              <li>
+                <Link to='/projects/'>Проекты</Link>
+              </li>
+              <li>
+                <Link to='/todo/'>Заметки</Link>
+              </li>
+            </ul>
+          </nav>
+          <hr></hr>
+          <Switch>
+            <Route exact path='/users' component={() => <Users />} />
+            <Route exact path='/projects' component={() => <Projects />} />
+            <Route exact path='/todo' component={() => <ToDo />} />
+            <Route component={NotFound404} />
+            <Redirect from='/' to='/users' />
+          </Switch>
+        </BrowserRouter>
         </div>
     )
 }

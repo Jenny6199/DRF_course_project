@@ -1,15 +1,16 @@
 import React from 'react';
 import './App.css';
-/* 
 import MainMenu from './components/menu';
 import PageFooter from './components/footer';
-*/
+/*
 import Users from './components/user';
 import Projects from './components/project';
 import ToDo from './components/todo';
 import {BrowserRouter, Route, Switch, Redirect, Link} from 'react-router-dom';
+*/
 import axios from 'axios';
 
+/*
 const NotFound404 = ({location}) => {
   return (
     <div>
@@ -17,6 +18,7 @@ const NotFound404 = ({location}) => {
     </div>
   )
 }
+*/
 
 
 class App extends React.Component {
@@ -30,15 +32,17 @@ class App extends React.Component {
   }
 
   load_data() {
-    axios.get('http://127.0.0.1:8000/api/users').then(response => {
+    const api_path = 'http://127.0.0.1:8000/api/'
+
+    axios.get(api_path + 'users').then(response => {
       this.setState({users: response.data})
     }).catch(error => console.log(error))
 
-    axios.get('http://127.0.0.1:8000/api/projects').then(response => {
+    axios.get(api_path + 'projects').then(response => {
       this.setState({projects: response.data})
     }).catch(error => console.log(error))
 
-    axios.get('http://127.0.0.1:8000/api/todos').then(response => {
+    axios.get(api_path + 'todos').then(response => {
       this.setState({todo: response.data})
     }).catch(error => console.log(error))
   }
@@ -49,12 +53,12 @@ class App extends React.Component {
 
   render ()  {
     return (
-/*      <div>
+      <div>
         <MainMenu />
         <hr></hr>
         <PageFooter />
       </div>
-*/    <div className="App">
+/*    <div className="App">
         <BrowserRouter>
           <nav>
             <ul>
@@ -78,6 +82,7 @@ class App extends React.Component {
           </Switch>
         </BrowserRouter>
       </div>
+*/      
     )
   }
 }
