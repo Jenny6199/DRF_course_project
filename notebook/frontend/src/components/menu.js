@@ -39,7 +39,7 @@ const MainMenu = () => {
             <Route exact path='/users' component={() => <Users />} />
             <Route exact path='/projects' component={() => <Projects />} />
             <Route exact path='/todo' component={() => <ToDo />} />
-            <Route exoct path='/login' component={() => <LoginForm />} />
+            <Route exoct path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
             <Route component={NotFound404} />
             <Redirect from='/' to='/users' />
           </Switch>

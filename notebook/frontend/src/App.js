@@ -41,7 +41,7 @@ class App extends React.Component {
   get_token(username, password) {
 
     const api_path = this.api_path
-    
+
     axios.post(api_path + 'api-token-auth/', {username: username, password: password}).then(response => {
       console.log(response.data)
     }).catch(error => alert('Ошибка ввода логина или пароля!'))
