@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
 import Projects from './project';
 import Users from './user';
 import ToDo from './todo';
+import LoginForm from './Auth';
 
 const NotFound404 =({ location }) => {
     return (
@@ -28,6 +29,9 @@ const MainMenu = () => {
               <li>
                 <Link to='/todo/'>Заметки</Link>
               </li>
+              <li>
+                  <Link to='/login'>Авторизация</Link>
+              </li>
             </ul>
           </nav>
           <hr></hr>
@@ -35,6 +39,7 @@ const MainMenu = () => {
             <Route exact path='/users' component={() => <Users />} />
             <Route exact path='/projects' component={() => <Projects />} />
             <Route exact path='/todo' component={() => <ToDo />} />
+            <Route exoct path='/login' component={() => <LoginForm />} />
             <Route component={NotFound404} />
             <Redirect from='/' to='/users' />
           </Switch>
