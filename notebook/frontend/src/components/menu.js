@@ -74,15 +74,24 @@ class MainMenu extends React.Component {
 
         axios.get(this.get_path() + 'api/users/', {headers}).then(response => {
             this.setState({users: response.data.results})
-        }).catch(error => console.log(error))
+        }).catch(error => {
+            console.log(error)
+            this.setState({users: []})
+        })
 
         axios.get(this.get_path() + 'api/projects/', {headers}).then(response => {
             this.setState({projects: response.data.results})
-        }).catch(error => console.log(error))
+        }).catch(error => {
+            console.log(error)
+            this.setState({projects: []})
+        })
 
         axios.get(this.get_path() + 'api/todo/', {headers}).then(response => {
             this.setState({todos: response.data.results})
-        }).catch(error => console.log(error))
+        }).catch(error => {
+            console.log(error)
+            this.setState({todos: []})
+        })
     }
 
     componentDidMount() {
