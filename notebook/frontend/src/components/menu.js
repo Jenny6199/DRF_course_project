@@ -1,8 +1,8 @@
 import React from 'react';
 import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
-import Projects from './project';
-import Users from './user';
-import ToDo from './todo';
+import ProjectList from './project';
+import UserList from './user';
+import ToDoList from './todo';
 import LoginForm from './Auth';
 import axios from 'axios';
 
@@ -20,7 +20,7 @@ class MainMenu extends React.Component {
         this.state = {
             'users': [],
             'projects': [],
-            'todo': [],
+            'todos': [],
             'token': '',
         }
     }
@@ -68,15 +68,15 @@ class MainMenu extends React.Component {
         const headers = this.get_headers()
 
         axios.get(this.get_path() + 'api/users/', {headers}).then(response => {
-            this.setState({users: response.data})
+            this.setState({users: response.data.results})
         }).catch(error => console.log(error))
 
         axios.get(this.get_path() + 'api/projects/', {headers}).then(response => {
-            this.setState({projects: response.data})
+            this.setState({projects: response.data.results})
         }).catch(error => console.log(error))
 
         axios.get(this.get_path() + 'api/todo/', {headers}).then(response => {
-            this.setState({todo: response.data})
+            this.setState({todos: response.data.results})
         }).catch(error => console.log(error))
     }
 
@@ -105,11 +105,10 @@ class MainMenu extends React.Component {
                             </li>
                         </ul>
                     </nav>
-                    <hr></hr>
                     <Switch>
-                        <Route exact path='/users' component={() => <Users />} />
-                        <Route exact path='/projects' component={() => <Projects />} />
-                        <Route exact path='/todo' component={() => <ToDo />} />
+                        <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
+                        <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
+                        <Route exact path='/todo' component={() => <ToDoList todos={this.state.todos} />} />
                         <Route exoct path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
                         <Route component={NotFound404} />
                         <Redirect from='/' to='/users' />

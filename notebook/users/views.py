@@ -15,7 +15,7 @@ class UserLimitOffsetPagination(LimitOffsetPagination):
     Класс содержит настройки LimitOfsetPagination, для дальнейшей
     реализации пагинатора в наборе представлений.
     """
-    default_limit = 3
+    default_limit = 10
 
 class UserSpecialViewSet(
     viewsets.GenericViewSet,  
