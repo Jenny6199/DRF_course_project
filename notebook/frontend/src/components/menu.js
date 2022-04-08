@@ -5,6 +5,7 @@ import UserList from './user';
 import ToDoList from './todo';
 import LoginForm from './Auth';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 const NotFound404 =({ location }) => {
     return (
@@ -38,7 +39,9 @@ class MainMenu extends React.Component {
     }
 
     set_token(token) {
-        localStorage.setItem('token', token)
+        // localStorage.setItem('token', token)
+        const cookies = new Cookies()
+        cookies.set('token', token)
         this.setState({'token': token}, () => this.load_data())
     }
 
@@ -49,7 +52,9 @@ class MainMenu extends React.Component {
     }
 
     get_token_from_storage() {
-        const token = localStorage.getItem('token')
+        const cookies = new Cookies()
+        const token = cookies.get('token')
+        // const token = localStorage.getItem('token')
         this.setState({'token': token}, () => this.load_data())
     }
 
