@@ -44,11 +44,11 @@ const UserList = ({users}) => {
 }
 
 class Users extends React.Component {
-    constructor(props) {
+  constructor(props) {
       super(props)
       this.state = {
         'users': []
-      }
+      }      
     }
   
     componentDidMount() {
