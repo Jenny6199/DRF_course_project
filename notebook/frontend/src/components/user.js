@@ -1,27 +1,14 @@
 import React from 'react';
-// import axios from 'axios';
 
-const UserItem = ({user}) => {
+  const UserItem = ({user}) => {
     return (
         <tr>
-            <td>
-                {user.surname}
-            </td>
-            <td>
-                {user.first_name}
-            </td>
-            <td>
-                {user.parent_name}
-            </td>
-            <td>
-                {user.birthday}
-            </td>
-            <td>
-                {user.email}
-            </td>
-            <td>
-                {user.role}
-            </td>
+            <td>{user.surname}</td>
+            <td>{user.first_name}</td>
+            <td>{user.parent_name}</td>
+            <td>{user.birthday}</td>
+            <td>{user.email}</td>
+            <td>{user.role}</td>
         </tr>
     )
 }
