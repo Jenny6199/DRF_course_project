@@ -105,16 +105,16 @@ class MainMenu extends React.Component {
                 <BrowserRouter>
                     <nav>
                         <ul>
-                            <li>
+                            <li key={'users'}>
                             <Link to='/users/'>Пользователи</Link>
                             </li>
-                            <li>
+                            <li key={'projects'}>
                             <Link to='/projects/'>Проекты</Link>
                             </li>
-                            <li>
+                            <li key={'todos'}>
                             <Link to='/todo/'>Заметки</Link>
                             </li>
-                            <li>
+                            <li key={'login'}>
                             {this.is_authenticated() ? <button onClick={() => this.logout()}>Выйти</button> : <Link to='/login'>Авторизация</Link>}
                             </li>
                         </ul>
