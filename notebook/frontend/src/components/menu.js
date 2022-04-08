@@ -35,19 +35,20 @@ class MainMenu extends React.Component {
     }
 
     logout() {
-        this.set_token('')
+        this.set_token('', '')
     }
 
-    set_token(token) {
+    set_token(token, username) {
         // localStorage.setItem('token', token)
         const cookies = new Cookies()
         cookies.set('token', token)
+        cookies.set('username', username)
         this.setState({'token': token}, () => this.load_data())
     }
 
     get_token(username, password) {
         axios.post(this.get_path() + 'api-token-auth/', {username: username, password: password}).then(response => {
-            this.set_token(response.data['token'])
+            this.set_token(response.data['token'], username)
         }).catch(error => alert('Ошибка ввода логина или пароля!'))
     }
 
@@ -56,6 +57,12 @@ class MainMenu extends React.Component {
         const token = cookies.get('token')
         // const token = localStorage.getItem('token')
         this.setState({'token': token}, () => this.load_data())
+    }
+
+    get_username_from_storage() {
+        const cookies = new Cookies()
+        const username = cookies.get('username')
+        return username
     }
 
     get_headers() {
@@ -119,6 +126,7 @@ class MainMenu extends React.Component {
                             </li>
                         </ul>
                     </nav>
+                    {this.is_authenticated() ? <div>{this.get_username_from_storage()}</div> : <div>--</div>}
                     <Switch>
                         <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
                         <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
