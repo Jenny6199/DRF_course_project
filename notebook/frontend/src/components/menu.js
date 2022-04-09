@@ -1,8 +1,11 @@
 import React from 'react';
 import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
-import Projects from './project';
-import Users from './user';
-import ToDo from './todo';
+import ProjectList from './project';
+import UserList from './user';
+import ToDoList from './todo';
+import LoginForm from './Auth';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 const NotFound404 =({ location }) => {
     return (
@@ -12,35 +15,131 @@ const NotFound404 =({ location }) => {
     )
   }
 
-const MainMenu = () => {
-    return (
-        <div>
-            <h3>Главное меню</h3>
-            <BrowserRouter>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to='/projects'>Проекты</Link>
-                        </li>
-                        <li>
-                            <Link to='/users'>Пользователи</Link>
-                        </li>
-                        <li>
-                            <Link to='/todo'>Заметки</Link>
-                        </li>
-                    </ul>
-                </nav>
-                <hr></hr>
-                <Switch>
-                    <Route exact path='/users' component={() => <Users />} />
-                    <Route exact path='/projects' component={() => <Projects />} />
-                    <Route exact path='/todo' component={() => <ToDo />} />
-                    <Route component={NotFound404} />
-                    <Redirect from='/' to='/users' />
-                </Switch>
-            </BrowserRouter>
-        </div>
-    )
+class MainMenu extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            'users': [],
+            'projects': [],
+            'todos': [],
+            'token': '',
+        }
+    }
+
+    get_path(){
+        return 'http://127.0.0.1:8000/'
+    }
+
+    is_authenticated() {
+        return this.state.token !== ''
+    }
+
+    logout() {
+        this.set_token('', '')
+    }
+
+    set_token(token, username) {
+        // localStorage.setItem('token', token)
+        const cookies = new Cookies()
+        cookies.set('token', token)
+        cookies.set('username', username)
+        this.setState({'token': token}, () => this.load_data())
+    }
+
+    get_token(username, password) {
+        axios.post(this.get_path() + 'api-token-auth/', {username: username, password: password}).then(response => {
+            this.set_token(response.data['token'], username)
+        }).catch(error => alert('Ошибка ввода логина или пароля!'))
+    }
+
+    get_token_from_storage() {
+        const cookies = new Cookies()
+        const token = cookies.get('token')
+        // const token = localStorage.getItem('token')
+        this.setState({'token': token}, () => this.load_data())
+    }
+
+    get_username_from_storage() {
+        const cookies = new Cookies()
+        const username = cookies.get('username')
+        return username
+    }
+
+    get_headers() {
+        let headers = {
+            'Content-Type': 'application/json'
+        }
+        if (this.is_authenticated()) 
+        {
+            headers['Authorization'] = 'Token ' + this.state.token
+        }
+        return headers
+    }
+
+    load_data() {
+        const headers = this.get_headers()
+
+        axios.get(this.get_path() + 'api/users/', {headers}).then(response => {
+            this.setState({users: response.data.results})
+        }).catch(error => {
+            console.log(error)
+            this.setState({users: []})
+        })
+
+        axios.get(this.get_path() + 'api/projects/', {headers}).then(response => {
+            this.setState({projects: response.data.results})
+        }).catch(error => {
+            console.log(error)
+            this.setState({projects: []})
+        })
+
+        axios.get(this.get_path() + 'api/todo/', {headers}).then(response => {
+            this.setState({todos: response.data.results})
+        }).catch(error => {
+            console.log(error)
+            this.setState({todos: []})
+        })
+    }
+
+    componentDidMount() {
+        this.get_token_from_storage()
+    }
+
+    render() {
+        return (
+            <div>
+                <h3>Главное меню</h3>
+                <BrowserRouter>
+                    <nav>
+                        <ul>
+                            <li key={'users'}>
+                            <Link to='/users/'>Пользователи</Link>
+                            </li>
+                            <li key={'projects'}>
+                            <Link to='/projects/'>Проекты</Link>
+                            </li>
+                            <li key={'todos'}>
+                            <Link to='/todo/'>Заметки</Link>
+                            </li>
+                            <li key={'login'}>
+                            {this.is_authenticated() ? <button onClick={() => this.logout()}>Выйти</button> : <Link to='/login'>Авторизация</Link>}
+                            </li>
+                        </ul>
+                    </nav>
+                    {this.is_authenticated() ? <div>{this.get_username_from_storage()}</div> : <div>--</div>}
+                    <Switch>
+                        <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
+                        <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
+                        <Route exact path='/todo' component={() => <ToDoList todos={this.state.todos} />} />
+                        <Route exoct path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
+                        <Route component={NotFound404} />
+                        <Redirect from='/' to='/users' />
+                    </Switch>
+                </BrowserRouter>
+            </div>
+        )
+    }
+
 }
 
 export default MainMenu;

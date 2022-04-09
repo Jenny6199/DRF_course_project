@@ -15,7 +15,7 @@ class UserLimitOffsetPagination(LimitOffsetPagination):
     Класс содержит настройки LimitOfsetPagination, для дальнейшей
     реализации пагинатора в наборе представлений.
     """
-    default_limit = 3
+    default_limit = 10
 
 class UserSpecialViewSet(
     viewsets.GenericViewSet,  
@@ -31,7 +31,7 @@ class UserSpecialViewSet(
     Для фильтрации пользователей по должности используйте параметры запроса (например ?role=M - список менеджеров).
     Для просмотра отдельной записи пользователя добавьте UUID пользователя в URL.
     """
-    permission_classes = [IsAdminUser]
+    # permission_classes = [IsAdminUser]
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = User.objects.all()
     serializer_class = UserModelSerializer

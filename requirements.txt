@@ -1,6 +1,8 @@
 asgiref==3.4.1
 certifi==2021.10.8
+cffi==1.15.0
 charset-normalizer==2.0.12
+cryptography==36.0.2
 Django==3.2.12
 django-cors-headers==3.10.1
 django-filter==21.1
@@ -9,6 +11,7 @@ djangorestframework-simplejwt==4.4.0
 idna==3.3
 importlib-metadata==4.8.3
 Markdown==3.3.6
+pycparser==2.21
 PyJWT==2.3.0
 pytz==2021.3
 requests==2.27.1

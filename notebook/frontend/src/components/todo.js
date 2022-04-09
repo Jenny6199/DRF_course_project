@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+// import axios from "axios";
 
 const ToDoItem = ({todo}) => {
     return (
@@ -33,33 +33,4 @@ const ToDoList = ({todos}) => {
     )
 }
 
-class ToDo extends React.Component {
-    constructor(props) {
-      super(props)
-      this.state = {
-        'todos': []
-      }
-    }
-  
-    componentDidMount() {
-      axios.get('http://127.0.0.1:8000/api/todo/?limit=10')
-      .then(response => {
-        const todos = response.data.results
-          this.setState(
-            {
-              'todos': todos
-            }
-          )
-      }).catch(error => console.log(error))
-    }
-
-    render ()  {
-        return (
-          <div>
-            <ToDoList todos={this.state.todos} />
-          </div>
-        )
-      }
-}
-
-export default ToDo;
+export default ToDoList;
