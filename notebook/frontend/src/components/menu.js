@@ -126,7 +126,7 @@ class MainMenu extends React.Component {
                             </li>
                         </ul>
                     </nav>
-                    {this.is_authenticated() ? <div>{this.get_username_from_storage()}</div> : <div>--</div>}
+                    {this.is_authenticated() ? <div>{this.get_username_from_storage()}</div> : <div>-Гость-</div>}
                     <Switch>
                         <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
                         <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
