@@ -102,6 +102,7 @@ class TestUserViewSet(TestCase):
             birthday='1970-01-01',
             role='M'
         )
+        client = APIClient()     
         admin = User.objects.create_superuser(
             username='django',
             first_name='Django',
@@ -112,7 +113,6 @@ class TestUserViewSet(TestCase):
             is_active=True,
             role='A',
         )
-        client = APIClient()
         client.login(username='django', password='geekbrains')
         response = client.put(f'/api/users/{user.id}/', {
             'username': 'hello',
@@ -123,3 +123,12 @@ class TestUserViewSet(TestCase):
         self.assertEqual(user.username, 'hello')
         self.assertEqual(user.email, 'world@net.ru')
         client.logout()
+
+
+class TestMath(APISimpleTestCase):
+    """Демонстрация работы теста APISimpleTestCase"""
+    def test_sqrt(self):
+        import math
+        self.assertEqual(math.sqrt(4), 2)
+
+    
