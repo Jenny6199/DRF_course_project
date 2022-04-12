@@ -32,8 +32,26 @@ class TestUserViewSet(TestCase):
             'email': 'tu@test.local',
             'role': 'M'
             }, format='json')
-        try:
-            view = UserSpecialViewSet.as_view({'post': 'create'})
-        except AttributeError:
-            pass
-            # Создание новых пользователей во view не предусмотрено.
+        view = UserSpecialViewSet.as_view({'post': 'create'})
+        response = view(request)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+    def test_create_admin(self):
+        factory = APIRequestFactory()
+        request = factory.post('/api/users/', {
+            'userneme': 'Testuser',
+            'email': 'tu@test.local',
+            'birthday': '1980-01-01',
+            'role': 'M',
+        }, format='json')
+        admin = User.objects.create_superuser(
+            username='admin',
+            email='admin@admin.com',
+            password='admin_001',
+            birthday='1970-01-01'
+        )
+        force_authenticate(request, admin)
+        view = UserSpecialViewSet.as_view({'post': 'create'})
+        response = view(request)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
