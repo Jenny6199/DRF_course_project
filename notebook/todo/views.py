@@ -1,7 +1,7 @@
 # Mодели
 from .models import Project, ToDo
 # Сериализаторы моделей
-from .serializers import ProjectModelSerializer, ToDoModelSerializer
+from .serializers import ProjectModelSerializer, ToDoModelSerializer, ProjectBaseSerializer, ToDoBaseSerializer, ToDoStartSerializer
 from rest_framework.serializers import ModelSerializer
 # Использование набора представлений (ViewSets)
 from rest_framework import viewsets
@@ -72,6 +72,14 @@ class ToDoSpecialViewSet(
         return Response(serializer.data)
     
 
+class ToDoBaseViewSet(viewsets.ModelViewSet):
+    serializer_class = ToDoBaseSerializer
+    queryset = ToDo.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return ToDoStartSerializer
+        return ToDoBaseSerializer
 
 
 # PROJECT_VIEWSET
@@ -118,3 +126,8 @@ class ProjectSpecialViewSet(
         if param:
             projects = projects.filter(project_name__contains=param)
         return projects
+
+
+class ProjectBaseViewSet(viewsets.ModelViewSet):
+    serializer_class = ProjectBaseSerializer
+    queryset = Project.objects.all()

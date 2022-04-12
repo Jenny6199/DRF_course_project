@@ -45,6 +45,12 @@ class ProjectBaseSerializer(ModelSerializer):
         fields = '__all__'
 
 
+class ToDoStartSerializer(ModelSerializer):
+    class Meta:
+        model = ToDo
+        fields = '__all__'
+
+
 class ToDoBaseSerializer(ModelSerializer):
     project = ProjectBaseSerializer()
     class Meta:
