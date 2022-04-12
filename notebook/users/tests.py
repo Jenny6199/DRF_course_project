@@ -15,6 +15,8 @@ class TestUserViewSet(TestCase):
     Класс для тестирования контроллера модели User
     Permissions: DjangoModelPermissionsOrAnonReadOnly
     """
+# APIREQUESTFACTORY
+
     def test_get_list(self):
         """ Получение списка пользователей"""
         factory = APIRequestFactory()
@@ -61,15 +63,32 @@ class TestUserViewSet(TestCase):
         response = view(request)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+# APICLIENT
 
     def test_get_detail(self):
-        """ User-read """
-        user = User.objects.create(
+        """ Попытка получения детальной информации о пользователе"""
+        user = User.objects.create_user(
             username='testuser',
             email='test@mail.test',
             birthday='1970-01-01',
             role='M'
         )
         client = APIClient()
-        response = client.get(f'/api/users/{user.id}')
+        response = client.get(f'/api/users/{user.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+    def test_edit_guest(self):
+        """ Попытка редактирования профиля пользователя без авторизации"""
+        user = User.objects.create_user(
+        username='testuser',
+        email='test@mail.test',
+        birthday='1970-01-01',
+        role='M'
+        )
+        client = APIClient()
+        response = client.put(f'/api/users/{user.id}/', {
+            'username': 'hello',
+            'email': 'world@net.ru'
+            })
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
