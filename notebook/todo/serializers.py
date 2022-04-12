@@ -37,3 +37,16 @@ class ToDoModelSerializer(ModelSerializer):
             'updated_at',
             'is_active',
         ]
+
+
+class ProjectBaseSerializer(ModelSerializer):
+    class Meta:
+        model = Project
+        fields = '__all__'
+
+
+class ToDoBaseSerializer(ModelSerializer):
+    project = ProjectBaseSerializer()
+    class Meta:
+        model = ToDo
+        fields = '__all__'
