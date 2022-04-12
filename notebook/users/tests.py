@@ -92,3 +92,34 @@ class TestUserViewSet(TestCase):
             'email': 'world@net.ru'
             })
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+    def test_edit_admin(self):
+        """Попытка редактирования профиля пользователя администратором"""
+        user = User.objects.create_user(
+            username='testuser',
+            email='test@mail.test',
+            birthday='1970-01-01',
+            role='M'
+        )
+        admin = User.objects.create_superuser(
+            username='django',
+            first_name='Django',
+            surname='Superuser',
+            email='django@geekbrains.local',
+            password='geekbrains',
+            birthday='1970-01-01',
+            is_active=True,
+            role='A',
+        )
+        client = APIClient()
+        client.login(username='django', password='geekbrains')
+        response = client.put(f'/api/users/{user.id}/', {
+            'username': 'hello',
+            'email': 'world@net.ru'
+            })
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        user = User.objects.get(id=user.id)
+        self.assertEqual(user.username, 'hello')
+        self.assertEqual(user.email, 'world@net.ru')
+        client.logout()
