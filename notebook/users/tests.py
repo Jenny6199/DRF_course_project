@@ -60,3 +60,16 @@ class TestUserViewSet(TestCase):
         view = UserSpecialViewSet.as_view({'post': 'create'})
         response = view(request)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+    def test_get_detail(self):
+        """ User-read """
+        user = User.objects.create(
+            username='testuser',
+            email='test@mail.test',
+            birthday='1970-01-01',
+            role='M'
+        )
+        client = APIClient()
+        response = client.get(f'/api/users/{user.id}')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
