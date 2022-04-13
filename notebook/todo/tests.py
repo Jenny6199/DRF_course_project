@@ -1,4 +1,5 @@
 from curses import use_default_colors
+import json
 from django.test import TestCase
 from rest_framework.test import APITestCase
 from rest_framework import status
@@ -37,4 +38,13 @@ class TestToDoViewSet(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         todo = ToDo.objects.get(id=todo.id)
         self.assertEqual(todo.text, 'hi!')
+
+    def test_ToDoViewSet_get_detail(self):
+        """ Попытка получения данных заметки"""
+        todo = mixer.blend(ToDo, text='Изучение DRF')
+        response = self.client.get('f/api/todo/{todo.id}/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_todo = json.loads(response.content)
+        self.assertEqual(response_todo['text'], 'Изучение DRF')
+        
         
