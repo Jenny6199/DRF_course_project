@@ -46,5 +46,12 @@ class TestToDoViewSet(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response_todo = json.loads(response.content)
         self.assertEqual(response_todo['text'], 'Изучение DRF')
-        
-        
+
+
+    def test_ToDoViewSet_get_detail_creator(self):
+        """ Попытка получения данных заметки из связанной модели"""
+        todo = mixer.blend(ToDo, creator__username='testuser')
+        response = self.client.get('f/api/todo/{todo.id}/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_todo = json.loads(response.content)
+        self.assertEqual(response_todo['creator']['username'], 'testuser')
