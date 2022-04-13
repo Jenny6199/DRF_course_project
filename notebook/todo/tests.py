@@ -4,6 +4,8 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from .models import ToDo, Project
 from users.models import User
+from mixer.backend.django import mixer
+
 
 
 class TestToDoViewSet(APITestCase):
@@ -29,11 +31,7 @@ class TestToDoViewSet(APITestCase):
             is_active=True,
             role='A',
         )
-        todo = ToDo.objects.create(
-            project = Project.objects.get(id=1),
-            creator = User.objects.get(username='django'),
-            text='hello world',   
-        )
+        todo = mixer.blend(ToDo)
         self.client.login(username='django', password='geekbrains')
         response = self.client.put(f'/api/todo/{todo.id}/', {'text': 'hi!'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
