@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin, CreateModelMixin
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .models import User
 from .serializers import UserModelSerializer
 from django.shortcuts import get_object_or_404
@@ -19,19 +19,20 @@ class UserLimitOffsetPagination(LimitOffsetPagination):
 
 class UserSpecialViewSet(
     viewsets.GenericViewSet,  
-    ListModelMixin, 
+    ListModelMixin,
+    CreateModelMixin, 
     RetrieveModelMixin, 
     UpdateModelMixin
     ):
     """
     Класс серии представлений для модели User c реализацией пагинатора и фильтрации.
     Класс позволяет просматривать список пользователей, отдельную запись, позволяет вносить изменения в запись.
-    Удаление и создание новых пользователей запрещены.    
+    Удаление пользователей запрещено.    
     Для настройки пагинатора используйте параметры limit= и offset= (например ?limit=3&offset=3).
     Для фильтрации пользователей по должности используйте параметры запроса (например ?role=M - список менеджеров).
     Для просмотра отдельной записи пользователя добавьте UUID пользователя в URL.
     """
-    # permission_classes = [IsAdminUser]
+    # permission_classes = [IsAuthenticated]
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
