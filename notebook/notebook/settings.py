@@ -165,6 +165,7 @@ REST_FRAMEWORK = {
     ]
 }
 
+
 # Settings for simple_jwt
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
