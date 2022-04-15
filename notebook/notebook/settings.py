@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',   
     'corsheaders',
     'django_filters',
+    'drf_yasg',
     # created apps
     'users.apps.UsersConfig',
     'todo.apps.TodoConfig',
@@ -162,8 +163,14 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ]
+    ],
+# Варианты версионирования API    
+#    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+#    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+#    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.AcceptHeaderVersioning',
 }
+
 
 # Settings for simple_jwt
 SIMPLE_JWT = {
