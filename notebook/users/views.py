@@ -1,12 +1,13 @@
 from django.shortcuts import render
+from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin, CreateModelMixin
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from .models import User
-from .serializers import UserModelSerializer
+from .serializers import UserModelSerializer, UserModelSerializer_v2
 from django.shortcuts import get_object_or_404
 
 
@@ -32,7 +33,7 @@ class UserSpecialViewSet(
     Для фильтрации пользователей по должности используйте параметры запроса (например ?role=M - список менеджеров).
     Для просмотра отдельной записи пользователя добавьте UUID пользователя в URL.
     """
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
@@ -54,3 +55,9 @@ class UserSpecialViewSet(
         user = get_object_or_404(User, pk=pk)
         serializer = UserModelSerializer(user)
         return Response(serializer.data)
+
+    def get_serializer_class(self):
+        """Выбор сериализатора в зависимости от версии API"""
+        if self.request.version == '0.2':
+            return UserModelSerializer_v2
+        return UserModelSerializer

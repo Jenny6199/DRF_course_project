@@ -17,3 +17,10 @@ class UserModelSerializer(HyperlinkedModelSerializer):
             'email', 
             'role',
         ]
+
+
+class UserModelSerializer_v2(HyperlinkedModelSerializer):
+    """ Вторая версия сериализатора для модели пользователя."""
+    class Meta:
+        model = User
+        fields = '__all__'
