@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',   
     'corsheaders',
     'django_filters',
-    'drf-yasg',
+    'drf_yasg',
     # created apps
     'users.apps.UsersConfig',
     'todo.apps.TodoConfig',
