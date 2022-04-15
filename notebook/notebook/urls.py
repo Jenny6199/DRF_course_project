@@ -21,8 +21,9 @@ urlpatterns = [
     path('api/', include(router.urls)),
     # Версионирование
     # re_path(r'^api/(?P<version>\d.\d)/users/$', UserVersioningViewSet.as_view()),
-    path('api/users/0.1', include('users.urls', namespace='0.1')),
-    path('api/users/0.2', include('users.urls', namespace='0.2')),
+    # path('api/users/0.1', include('users.urls', namespace='0.1')),
+    # path('api/users/0.2', include('users.urls', namespace='0.2')),
+    path('api/users/', UserVersioningViewSet.as_view()),
     # Путь для получения токена пользователя
     path('api-token-auth/', views.obtain_auth_token),
     # Пути для получения JWT
