@@ -1,9 +1,9 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, re_path, include
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 from todo.views import ProjectSpecialViewSet,ToDoSpecialViewSet
-from users.views import UserSpecialViewSet
+from users.views import UserSpecialViewSet, UserVersioningViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 router = DefaultRouter()
@@ -19,6 +19,8 @@ urlpatterns = [
     path('api-auth', include('rest_framework.urls')),
     # API
     path('api/', include(router.urls)),
+    # Версионирование
+    re_path(r'^api/(?P<version>\d.\d)/users/$', UserVersioningViewSet.as_view()),
     # Путь для получения токена пользователя
     path('api-token-auth/', views.obtain_auth_token),
     # Пути для получения JWT

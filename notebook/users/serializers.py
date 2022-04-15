@@ -1,4 +1,4 @@
-from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializer
 from .models import User
 
 
@@ -19,8 +19,19 @@ class UserModelSerializer(HyperlinkedModelSerializer):
         ]
 
 
-class UserModelSerializer_v2(HyperlinkedModelSerializer):
-    """ Вторая версия сериализатора для модели пользователя."""
+class UserModelSerializer_v2(ModelSerializer):
+    """ 
+    Версия сериализатора для модели пользователя
+    для демонстрации версионирования API.
+    (Удалены некоторые поля, сериализатор наследуется от ModelSerializer)
+    """
     class Meta:
         model = User
-        fields = '__all__'
+        fields = [
+            'id',
+            'username',
+            'surname',
+            'email', 
+            'birthday',
+            'email', 
+        ]

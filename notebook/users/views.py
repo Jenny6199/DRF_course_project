@@ -20,15 +20,14 @@ class UserLimitOffsetPagination(LimitOffsetPagination):
 
 class UserSpecialViewSet(
     viewsets.GenericViewSet,  
-    ListModelMixin,
-    CreateModelMixin, 
+    ListModelMixin, 
     RetrieveModelMixin, 
     UpdateModelMixin
     ):
     """
     Класс серии представлений для модели User c реализацией пагинатора и фильтрации.
     Класс позволяет просматривать список пользователей, отдельную запись, позволяет вносить изменения в запись.
-    Удаление пользователей запрещено.    
+    Создание и удаление пользователей запрещено.    
     Для настройки пагинатора используйте параметры limit= и offset= (например ?limit=3&offset=3).
     Для фильтрации пользователей по должности используйте параметры запроса (например ?role=M - список менеджеров).
     Для просмотра отдельной записи пользователя добавьте UUID пользователя в URL.
@@ -58,6 +57,32 @@ class UserSpecialViewSet(
 
     def get_serializer_class(self):
         """Выбор сериализатора в зависимости от версии API"""
+        print(f'Версия API - {self.request.version}')
+        if self.request.version == '0.2':
+            return UserModelSerializer_v2
+        return UserModelSerializer
+
+
+class UserVersioningViewSet(
+    generics.ListAPIView, 
+    generics.CreateAPIView,
+    generics.RetrieveAPIView,
+    generics.UpdateAPIView,
+    generics.DestroyAPIView
+    ):
+    """
+    Класс представлений для модели User с для демонстрации версионирования API
+    Разрешены все действия с пользователями для администратора.
+    """
+    permission_classes = [IsAdminUser]
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    queryset = User.objects.all()
+    # serializer_class = UserModelSerializer
+    # pagination_class = UserLimitOffsetPagination
+    
+    def get_serializer_class(self):
+        """Выбор сериализатора в зависимости от версии API"""
+        print(f'Версия API - {self.request.version}')
         if self.request.version == '0.2':
             return UserModelSerializer_v2
         return UserModelSerializer
