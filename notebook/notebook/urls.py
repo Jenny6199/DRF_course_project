@@ -7,7 +7,7 @@ from users.views import UserSpecialViewSet, UserVersioningViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 router = DefaultRouter()
-# router.register('users', UserSpecialViewSet, basename='users')
+router.register('users', UserSpecialViewSet, basename='users')
 router.register('projects', ProjectSpecialViewSet, basename='projects')
 router.register('todo', ToDoSpecialViewSet, basename='todo')
 
@@ -23,7 +23,7 @@ urlpatterns = [
     # re_path(r'^api/(?P<version>\d.\d)/users/$', UserVersioningViewSet.as_view()),
     # path('api/users/0.1', include('users.urls', namespace='0.1')),
     # path('api/users/0.2', include('users.urls', namespace='0.2')),
-    path('api/users/', UserVersioningViewSet.as_view()),
+    # path('api/users/', UserVersioningViewSet.as_view()),
     # Путь для получения токена пользователя
     path('api-token-auth/', views.obtain_auth_token),
     # Пути для получения JWT
