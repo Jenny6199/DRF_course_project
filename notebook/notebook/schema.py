@@ -34,6 +34,8 @@ class Query(graphene.ObjectType):
 
     user_by_username = graphene.Field(UserType, username=graphene.String(required=True))
 
+    todo_by_creator = graphene.List(ToDoType, creator=graphene.String(required=False))
+
     def resolve_all_users(root, info):
         return User.objects.all()
 
@@ -49,5 +51,10 @@ class Query(graphene.ObjectType):
         except User.DoesNotExist:
             return None
 
+    def resolve_todo_by_creator(self, info, creator=None):
+        todo = ToDo.objects.all()
+        if creator:
+            todo = todo.filter(creator__username=creator)
+        return todo
 
 schema = graphene.Schema(query=Query)
