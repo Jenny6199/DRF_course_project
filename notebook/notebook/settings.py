@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 from unittest import skip
 from datetime import timedelta
-
+from django.contrib import staticfiles
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'drf_yasg',
+    'graphene_django',
     # created apps
     'users.apps.UsersConfig',
     'todo.apps.TodoConfig',
@@ -152,19 +153,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Settings for django_rest_framework
 REST_FRAMEWORK = {
+# Настройки фильтрации    
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+# Настройки пагинации
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100,
+# Настройки разрешений
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ],
+# Настройки аутентификации    
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-# Варианты версионирования API    
+# Настройки версионирования API    
 #    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
 #    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
 #    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
@@ -203,4 +208,9 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+# Settings for graphql
+GRAPHENE = {
+    'SCHEMA': 'notebook.schema.schema'
 }
