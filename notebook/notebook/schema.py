@@ -2,6 +2,7 @@ import graphene
 from graphene_django import DjangoObjectType
 from users.models import User
 from todo.models import Project, ToDo
+from uuid import uuid4
 
 
 class UserType(DjangoObjectType):
@@ -31,6 +32,8 @@ class Query(graphene.ObjectType):
     all_projects = graphene.List(ProjectType)
     all_todo = graphene.List(ToDoType)
 
+    user_by_username = graphene.Field(UserType, username=graphene.String(required=True))
+
     def resolve_all_users(root, info):
         return User.objects.all()
 
@@ -39,6 +42,12 @@ class Query(graphene.ObjectType):
 
     def resolve_all_todo(root, info):
         return ToDo.objects.all()
+
+    def resolve_user_by_username(self, info, username):
+        try:
+            return User.objects.get(username=username)
+        except User.DoesNotExist:
+            return None
 
 
 schema = graphene.Schema(query=Query)
