@@ -57,4 +57,23 @@ class Query(graphene.ObjectType):
             todo = todo.filter(creator__username=creator)
         return todo
 
-schema = graphene.Schema(query=Query)
+
+class ProjectMutation(graphene.Mutation):
+    class Arguments:
+        project_URL = graphene.String(required=True)
+        id = graphene.ID()
+    
+    project = graphene.Field(ProjectType)
+
+    @classmethod
+    def mutate(cls, root, info, project_URL, id):
+        project = Project.objects.get(pk=id)
+        project.project_URL = project_URL
+        project.save()
+        return ProjectMutation(project=project)
+    
+
+class Mutation(graphene.ObjectType):
+    update_project = ProjectMutation.Field()
+
+schema = graphene.Schema(query=Query, mutation=Mutation)
