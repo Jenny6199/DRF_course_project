@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'drf_yasg',
+    'django.contrib.staticfiles',
+    'graphene_django',
     # created apps
     'users.apps.UsersConfig',
     'todo.apps.TodoConfig',
@@ -152,19 +154,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Settings for django_rest_framework
 REST_FRAMEWORK = {
+# Настройки фильтрации    
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+# Настройки пагинации
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100,
+# Настройки разрешений
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ],
+# Настройки аутентификации    
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-# Варианты версионирования API    
+# Настройки версионирования API    
 #    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
 #    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
 #    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
