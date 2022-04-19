@@ -1,4 +1,5 @@
 import React from "react";
+
 // import axios from "axios";
 
 const ToDoItem = ({todo}) => {
@@ -8,9 +9,11 @@ const ToDoItem = ({todo}) => {
             <td>{todo.creator}</td>
             <td>{todo.text}</td>
             <td>{todo.short_description}</td>
-            <td>{todo.created_at}</td>
+            <td></td>
             <td>{todo.updated_at}</td>
-            <td>{todo.is_active}</td>
+            <td>
+                <button type="button">Удалить</button>
+            </td>
         </tr>
     )
 }
@@ -25,9 +28,9 @@ const ToDoList = ({todos}) => {
             <th>Создатель</th>
             <th>Текст</th>
             <th>Краткое описание</th>
-            <th>Дата создания</th>
+            <th></th>
             <th>Дата обновления</th>
-            <th>Заметка активна</th>
+            <th></th>
             {todos.map((todo) => <ToDoItem todo={todo} />)}
         </table>
     )
