@@ -6,6 +6,7 @@ import ToDoList from './todo';
 import LoginForm from './Auth';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import ToDoForm from './ToDoForm';
 
 
 const NotFound404 =({ location }) => {
@@ -127,16 +128,16 @@ class MainMenu extends React.Component {
                     <nav>
                         <ul>
                             <li key={'users'}>
-                            <Link to='/users/'>Пользователи</Link>
+                                <Link to='/users/'>Пользователи</Link>
                             </li>
                             <li key={'projects'}>
-                            <Link to='/projects/'>Проекты</Link>
+                                <Link to='/projects/'>Проекты</Link>
                             </li>
                             <li key={'todos'}>
-                            <Link to='/todo/'>Заметки</Link>
+                                <Link to='/todo/'>Заметки</Link>
                             </li>
                             <li key={'login'}>
-                            {this.is_authenticated() ? <button onClick={() => this.logout()}>Выйти</button> : <Link to='/login'>Авторизация</Link>}
+                                {this.is_authenticated() ? <button onClick={() => this.logout()}>Выйти</button> : <Link to='/login'>Авторизация</Link>}
                             </li>
                         </ul>
                     </nav>
@@ -144,7 +145,7 @@ class MainMenu extends React.Component {
                     <Switch>
                         <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
                         <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
-                        <Route exact path='/todo/create' component={() => <ToDoForm />} />
+                        <Route exact path='/todo/create' component={() => <ToDoForm/>} />
                         <Route exact path='/todo' component={() => <ToDoList todos={this.state.todos} deleteToDo={(id) => this.deleteToDo(id)} />} />
                         <Route exoct path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
                         <Route component={NotFound404} />
