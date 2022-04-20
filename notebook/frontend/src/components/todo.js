@@ -2,7 +2,7 @@ import React from "react";
 
 // import axios from "axios";
 
-const ToDoItem = ({todo}) => {
+const ToDoItem = ({todo, deleteToDo}) => {
     return (
         <tr>
             <td>{todo.project}</td>
@@ -12,13 +12,13 @@ const ToDoItem = ({todo}) => {
             <td></td>
             <td>{todo.updated_at}</td>
             <td>
-                <button type="button">Удалить</button>
+                <button onClick={() => deleteToDo(todo.id)} type="button">Удалить</button>
             </td>
         </tr>
     )
 }
 
-const ToDoList = ({todos}) => {
+const ToDoList = ({todos, deleteToDo}) => {
     return (
         <table>
             <caption>
@@ -31,7 +31,7 @@ const ToDoList = ({todos}) => {
             <th></th>
             <th>Дата обновления</th>
             <th></th>
-            {todos.map((todo) => <ToDoItem todo={todo} />)}
+            {todos.map((todo) => <ToDoItem todo={todo} deleteToDo={deleteToDo} />)}
         </table>
     )
 }

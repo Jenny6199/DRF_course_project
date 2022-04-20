@@ -26,6 +26,17 @@ class MainMenu extends React.Component {
         }
     }
 
+    deleteToDo(id) {
+        const headers = this.get_headers()
+        headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
+        console.log(headers)
+        axios.delete(`http://127.0.0.1:8000/api/todo/${id}`, {headers: headers})
+          .then(response => {
+            this.setState({todo: this.state.todos.filter((item) => item.id !== id)})
+        }).catch(error => console.log(error))
+    }
+
+
     get_path(){
         return 'http://127.0.0.1:8000/'
     }
@@ -130,7 +141,7 @@ class MainMenu extends React.Component {
                     <Switch>
                         <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
                         <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
-                        <Route exact path='/todo' component={() => <ToDoList todos={this.state.todos} />} />
+                        <Route exact path='/todo' component={() => <ToDoList todos={this.state.todos} deleteToDo={(id) => this.deleteToDo(id)} />} />
                         <Route exoct path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
                         <Route component={NotFound404} />
                         <Redirect from='/' to='/users' />
