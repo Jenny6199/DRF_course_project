@@ -20,19 +20,22 @@ const ToDoItem = ({todo, deleteToDo}) => {
 
 const ToDoList = ({todos, deleteToDo}) => {
     return (
-        <table>
-            <caption>
-                <h3>Заметки</h3>
-            </caption>
-            <th>Название проекта</th>
-            <th>Создатель</th>
-            <th>Текст</th>
-            <th>Краткое описание</th>
-            <th></th>
-            <th>Дата обновления</th>
-            <th></th>
-            {todos.map((todo) => <ToDoItem todo={todo} deleteToDo={deleteToDo} />)}
-        </table>
+        <div>
+            <table>
+                <caption>
+                    <h3>Заметки</h3>
+                </caption>
+                <th>Название проекта</th>
+                <th>Создатель</th>
+                <th>Текст</th>
+                <th>Краткое описание</th>
+                <th></th>
+                <th>Дата обновления</th>
+                <th></th>
+                {todos.map((todo) => <ToDoItem todo={todo} deleteToDo={deleteToDo} />)}
+            </table>
+            <Link to='/todo/create'>Добавить</Link>
+        </div>
     )
 }
 

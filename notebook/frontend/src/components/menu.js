@@ -7,6 +7,7 @@ import LoginForm from './Auth';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
+
 const NotFound404 =({ location }) => {
     return (
       <div>
@@ -143,6 +144,7 @@ class MainMenu extends React.Component {
                     <Switch>
                         <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
                         <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
+                        <Route exact path='/todo/create' component={() => <ToDoForm />} />
                         <Route exact path='/todo' component={() => <ToDoList todos={this.state.todos} deleteToDo={(id) => this.deleteToDo(id)} />} />
                         <Route exoct path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
                         <Route component={NotFound404} />
