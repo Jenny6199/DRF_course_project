@@ -39,8 +39,8 @@ class MainMenu extends React.Component {
     createToDo(todo_project, todo_creator, todo_short_description, todo_text) {
         const headers = this.get_headers()
         const data = {
-            project: {todo_project,},
-            creator: {todo_creator,},
+            project: {todo_project},
+            creator: {todo_creator},
             short_description: todo_short_description, 
             text: todo_text, 
         }
@@ -159,7 +159,7 @@ class MainMenu extends React.Component {
                     <Switch>
                         <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
                         <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
-                        <Route exact path='/todo/create' component={() => <ToDoForm createToDo={(todo_project, todo_creator, todo_short_description, todo_text) => this.createToDo(todo_project, todo_creator, todo_short_description, todo_text)} />} />
+                        <Route exact path='/todo/create' component={() => <ToDoForm creators={this.state.users} projects={this.state.projects} createToDo={(todo_project, todo_creator, todo_short_description, todo_text) => this.createToDo(todo_project, todo_creator, todo_short_description, todo_text)} />} />
                         <Route exact path='/todo' component={() => <ToDoList todos={this.state.todos} deleteToDo={(id) => this.deleteToDo(id)} />} />
                         <Route exoct path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
                         <Route component={NotFound404} />

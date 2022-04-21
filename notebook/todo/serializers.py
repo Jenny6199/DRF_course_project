@@ -21,10 +21,10 @@ class ProjectModelSerializer(ModelSerializer):
 
 class ToDoModelSerializer(ModelSerializer):
     """Сериализатор модели ToDo"""
-    project = ProjectModelSerializer()
-    creator = UserModelSerializer()
-    # project = StringRelatedField(many=False)
-    #creator = StringRelatedField(many=False)
+    # project = ProjectModelSerializer()
+    # creator = UserModelSerializer()
+    project = StringRelatedField(many=False)
+    creator = StringRelatedField(many=False)
     class Meta:
         model = ToDo
         fields = [
