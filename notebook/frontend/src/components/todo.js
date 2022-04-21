@@ -4,19 +4,17 @@ import { Link } from "react-router-dom";
 
 const ToDoItem = ({todo, deleteToDo}) => {
     return (
-        <tbody>
-            <tr key={todo.id}>
-                <td>{todo.project}</td>
-                <td>{todo.creator}</td>
-                <td>{todo.text}</td>
-                <td>{todo.short_description}</td>
-                <td></td>
-                <td>{todo.updated_at}</td>
-                <td>
-                    <button onClick={() => deleteToDo(todo.id)} type="button">Удалить</button>
-                </td>
-            </tr>
-        </tbody>
+        <tr>
+            <td>{todo.project}</td>
+            <td>{todo.creator}</td>
+            <td>{todo.text}</td>
+            <td>{todo.short_description}</td>
+            <td></td>
+            <td>{todo.updated_at}</td>
+            <td>
+                <button onClick={() => deleteToDo(todo.id)} type="button">Удалить</button>
+            </td>
+        </tr>
     )
 }
 
@@ -27,20 +25,28 @@ const ToDoList = ({todos, deleteToDo}) => {
                 <caption>
                     <h3>Заметки</h3>
                 </caption>
-                <thead>
+                <thead key={'table_ToDo_head'}>
                     <tr>
-                        <th>Название проекта</th>
-                        <th>Создатель</th>
-                        <th>Текст</th>
-                        <th>Краткое описание</th>
-                        <th></th>
-                        <th>Дата обновления</th>
+                        <td>Название проекта</td>
+                        <td>Создатель</td>
+                        <td>Текст</td>
+                        <td>Краткое описание</td>
+                        <td></td>
+                        <td>Дата обновления</td>
                     </tr>
                 </thead>
-                {todos.map((todo) => <ToDoItem todo={todo} deleteToDo={deleteToDo} />)}
+                <tbody>
+                    {todos.map((todo) => <ToDoItem todo={todo} deleteToDo={deleteToDo} />)}                    
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <Link to='/todo/create'>Добавить</Link>  
+                        </td>
+                    </tr>
+                                     
+                </tfoot>
             </table>
-            <br></br>
-            <Link to='/todo/create'>Добавить</Link>
         </div>
     )
 }

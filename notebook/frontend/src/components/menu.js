@@ -30,10 +30,6 @@ class MainMenu extends React.Component {
 
     deleteToDo(id) {
         const headers = this.get_headers()
-        /*
-        headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
-        console.log(headers)
-        */
         axios.delete(`http://127.0.0.1:8000/api/todo/${id}/`, {headers})
           .then(response => {
             this.setState({todo: this.state.todos.filter((item) => item.id !== id)})
