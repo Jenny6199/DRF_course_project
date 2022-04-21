@@ -36,6 +36,18 @@ class MainMenu extends React.Component {
         }).catch(error => console.log(error))
     }
 
+    createToDo(short_description, user) {
+        const headers = this.get_headers()
+        const data = {short_description: short_description, user: user}
+        axios.post(this.get_path() + 'api/todo/', data, {headers})
+            .then(response => {
+                let new_todo = response.data
+                const user = this.state.users.filter((item) => item.id === new_todo.user)[0]
+                new_todo.user = user
+                this.setState({short_description: [...this.state.todos, new_todo]})
+            }).catch(error => console.log(error))
+    }
+
 
     get_path(){
         return 'http://127.0.0.1:8000/'
