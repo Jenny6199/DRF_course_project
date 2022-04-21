@@ -39,8 +39,8 @@ class MainMenu extends React.Component {
     createToDo(todo_project, todo_creator, todo_short_description, todo_text) {
         const headers = this.get_headers()
         const data = {
-            project: {todo_project},
-            creator: {todo_creator},
+            project: todo_project.id,
+            creator: todo_creator.id,
             short_description: todo_short_description, 
             text: todo_text, 
         }

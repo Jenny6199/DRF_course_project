@@ -13,7 +13,7 @@ class Project(models.Model):
     """
     project_name = models.CharField(
         max_length=64, 
-        blank=False,
+        blank=True,
         verbose_name='Проект', 
         help_text='Наименование проекта',
         unique=True,
@@ -27,7 +27,8 @@ class Project(models.Model):
     members = models.ManyToManyField(
         User,
         verbose_name='Участники', 
-        help_text='Пользователи учавствующие в проекте'
+        help_text='Пользователи учавствующие в проекте',
+        blank=True
     )
     created_at = models.DateField(
         auto_now_add=True,

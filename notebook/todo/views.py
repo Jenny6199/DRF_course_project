@@ -65,11 +65,16 @@ class ToDoSpecialViewSet(
         Переопределение метода создания записи ToDo.
         Используется ToDoModelSerializer.
         """
-        serializer = ToDoModelSerializer(data=request.data)
+        serializer = ToDoStartSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         print('Новая заметка ToDo создана и успешно сохранена') 
         return Response(serializer.data)
+
+    def get_serializer_class(self,**kwargs):
+        if self.request.method in ['GET']:
+            return ToDoModelSerializer
+        return ToDoStartSerializer
     
 
 class ToDoBaseViewSet(viewsets.ModelViewSet):

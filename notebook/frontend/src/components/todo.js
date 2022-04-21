@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 // import axios from "axios";
 
 const ToDoItem = ({todo, deleteToDo}) => {
@@ -41,7 +41,10 @@ const ToDoList = ({todos, deleteToDo}) => {
                 <tfoot>
                     <tr>
                         <td>
-                            <Link to='/todo/create'>Добавить</Link>  
+                            <button className="btn btn-primary">
+                                <Link to='/todo/create'>Добавить</Link>  
+                            </button>
+                             
                         </td>
                     </tr>
                                      
