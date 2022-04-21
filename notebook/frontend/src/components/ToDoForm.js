@@ -8,7 +8,8 @@ class ToDoForm extends React.Component {
             todo_project: 0,
             todo_creator: 0,
             todo_short_description: '', 
-            todo_text: '' }
+            todo_text: '', 
+        }
     }
 
     handleChange(event) {
@@ -20,10 +21,13 @@ class ToDoForm extends React.Component {
     }
 
     handleSubmit(event) {
+        /*
         console.log(this.state.todo_project)
         console.log(this.state.todo_creator)
         console.log(this.state.todo_short_description)
         console.log(this.state.todo_text)
+        */
+       this.props.createToDo(this.state.todo_project, this.state.todo_creator, this.state.todo_short_description, this.state.todo_text)
         event.preventDefault()
     }
 
@@ -36,7 +40,7 @@ class ToDoForm extends React.Component {
                 </div>
                 <div className="form-group">
                     <label for="todo_creator">todo_creator</label>
-                    <input type="number" className="form-control" id="todo_creator" value={this.state.short_description} onChange={(event) => this.handleChange(event)}/>
+                    <input type="uuid" className="form-control" id="todo_creator" value={this.state.short_description} onChange={(event) => this.handleChange(event)}/>
                 </div>
                 <div className="form-group">
                     <label for="todo_short_description">todo_short_description</label>
