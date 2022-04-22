@@ -11,13 +11,21 @@ class ToDoForm extends React.Component {
             todo_text: '', 
         }
     }
-
+    
     handleChange(event) {
         this.setState(
             {
-                [event.target.id]: event.target.value
-            }
+                [event.target.name]: event.target.value
+            }  
         );
+        console.log(
+            event.target.name,
+            event.target.value,
+            this.state.todo_project, 
+            this.state.todo_creator, 
+            this.state.todo_short_description, 
+            this.state.todo_text
+        )
     }
 
     handleSubmit(event) {
@@ -38,9 +46,10 @@ class ToDoForm extends React.Component {
                     <label> Cоздать заметку в проекте: 
                         <select 
                             className="form-control" 
-                            id="todo_project" 
+                            name="todo_project"
+                            value={this.state.todo_project}
                             onChange={(event) => this.handleChange(event)}>
-                                {this.props.projects.map((item) => <option value={item.id}>{item.project_name}</option>)}
+                                {this.props.projects.map((item) => <option value={item.project_name}>{item.project_name}</option>)}
                         </select>
                     </label>
                 </div>
@@ -49,22 +58,23 @@ class ToDoForm extends React.Component {
                     <label key={'todo_creator'}> Автор заметки:
                         <select 
                             className="form-control" 
-                            id="todo_creator" 
+                            name="todo_creator"
+                            value={this.state.todo_creator} 
                             onChange={(event) => this.handleChange(event)}>
-                                {this.props.creators.map((item) => <option value={item.id}>{item.username}</option>)}
+                                {this.props.creators.map((item) => <option value={item.username}>{item.username}</option>)}
                         </select>
                     </label>
                 </div>
                 
                 <div className="form-group" key={'short_description_field'}>
                     <label> Краткое описание, хэштэги: 
-                        <input type="text" className="form-control" id="todo_short_description" value={this.state.short_description} onChange={(event) => this.handleChange(event)}/>
+                        <input type="text" className="form-control" name="todo_short_description" value={this.state.short_description} onChange={(event) => this.handleChange(event)}/>
                     </label>
                 </div>
 
                 <div className="form-group" key={'todo_text_field'}>
                     <label> Текст заметки: 
-                        <input type="text" className="form-control" id="todo_text" value={this.state.user} onChange={(event) => this.handleChange(event)}/>
+                        <input type="text" className="form-control" name="todo_text" value={this.state.user} onChange={(event) => this.handleChange(event)}/>
                     </label>
                 </div>
                 <input key={'submit_todo'} type="submit" className="btn btn-primary" value="Сохранить заметку" />

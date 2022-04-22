@@ -44,6 +44,7 @@ class MainMenu extends React.Component {
             short_description: todo_short_description, 
             text: todo_text, 
         }
+        console.log(data)
         axios.post(`http://127.0.0.1:8000/api/todo/`, data, {headers})
             .then(response => {
                 console.log(response.data)

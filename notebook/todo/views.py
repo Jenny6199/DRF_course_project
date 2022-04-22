@@ -83,8 +83,8 @@ class ToDoBaseViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         if self.request.method in ['GET']:
-            return ToDoStartSerializer
-        return ToDoBaseSerializer
+            return ToDoModelSerializer
+        return ToDoStartSerializer
 
 
 # PROJECT_VIEWSET
