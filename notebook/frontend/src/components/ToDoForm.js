@@ -11,21 +11,13 @@ class ToDoForm extends React.Component {
             todo_text: '', 
         }
     }
-    
+
     handleChange(event) {
         this.setState(
             {
                 [event.target.name]: event.target.value
             }  
         );
-        console.log(
-            event.target.name,
-            event.target.value,
-            this.state.todo_project, 
-            this.state.todo_creator, 
-            this.state.todo_short_description, 
-            this.state.todo_text
-        )
     }
 
     handleSubmit(event) {
