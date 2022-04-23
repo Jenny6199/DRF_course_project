@@ -74,7 +74,7 @@ class User(AbstractUser):
     role = models.CharField(
         max_length=1, 
         choices=USER_ROLE, 
-        blank=False, 
+        blank=True, 
         help_text='Тип учетной записи',
         verbose_name='Тип учетной записи'
     )

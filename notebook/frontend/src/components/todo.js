@@ -1,35 +1,56 @@
 import React from "react";
+import { Link, Redirect } from "react-router-dom";
 // import axios from "axios";
 
-const ToDoItem = ({todo}) => {
+const ToDoItem = ({todo, deleteToDo}) => {
     return (
         <tr>
             <td>{todo.project}</td>
             <td>{todo.creator}</td>
             <td>{todo.text}</td>
             <td>{todo.short_description}</td>
-            <td>{todo.created_at}</td>
+            <td></td>
             <td>{todo.updated_at}</td>
-            <td>{todo.is_active}</td>
+            <td>
+                <button onClick={() => deleteToDo(todo.id)} type="button">Удалить</button>
+            </td>
         </tr>
     )
 }
 
-const ToDoList = ({todos}) => {
+const ToDoList = ({todos, deleteToDo}) => {
     return (
-        <table>
-            <caption>
-                <h3>Заметки</h3>
-            </caption>
-            <th>Название проекта</th>
-            <th>Создатель</th>
-            <th>Текст</th>
-            <th>Краткое описание</th>
-            <th>Дата создания</th>
-            <th>Дата обновления</th>
-            <th>Заметка активна</th>
-            {todos.map((todo) => <ToDoItem todo={todo} />)}
-        </table>
+        <div>
+            <table>
+                <caption>
+                    <h3>Заметки</h3>
+                </caption>
+                <thead key={'table_ToDo_head'}>
+                    <tr>
+                        <td>Название проекта</td>
+                        <td>Создатель</td>
+                        <td>Текст</td>
+                        <td>Краткое описание</td>
+                        <td></td>
+                        <td>Дата обновления</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {todos.map((todo) => <ToDoItem todo={todo} deleteToDo={deleteToDo} />)}                    
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <button className="btn btn-primary">
+                                <Link to='/todo/create'>Добавить</Link>  
+                            </button>
+                             
+                        </td>
+                    </tr>
+                                     
+                </tfoot>
+            </table>
+        </div>
     )
 }
 

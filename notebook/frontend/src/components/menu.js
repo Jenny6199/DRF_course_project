@@ -6,6 +6,8 @@ import ToDoList from './todo';
 import LoginForm from './Auth';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import ToDoForm from './ToDoForm';
+
 
 const NotFound404 =({ location }) => {
     return (
@@ -25,6 +27,34 @@ class MainMenu extends React.Component {
             'token': '',
         }
     }
+
+    deleteToDo(id) {
+        const headers = this.get_headers()
+        axios.delete(`http://127.0.0.1:8000/api/todo/${id}/`, {headers})
+          .then(response => {
+            this.setState({todo: this.state.todos.filter((item) => item.id !== id)})
+        }).catch(error => console.log(error))
+    }
+
+    createToDo(todo_project, todo_creator, todo_short_description, todo_text) {
+        const headers = this.get_headers()
+        const data = {
+            project: todo_project.id,
+            creator: todo_creator.id,
+            short_description: todo_short_description, 
+            text: todo_text, 
+        }
+        console.log(data)
+        axios.post(`http://127.0.0.1:8000/api/todo/`, data, {headers})
+            .then(response => {
+                console.log(response.data)
+                let new_todo = response.data
+                const user = this.state.users.filter((item) => item.id === new_todo.user)[0]
+                new_todo.user = user
+                this.setState({short_description: [...this.state.todos, new_todo]})
+            }).catch(error => console.log(error))
+    }
+
 
     get_path(){
         return 'http://127.0.0.1:8000/'
@@ -113,16 +143,16 @@ class MainMenu extends React.Component {
                     <nav>
                         <ul>
                             <li key={'users'}>
-                            <Link to='/users/'>Пользователи</Link>
+                                <Link to='/users/'>Пользователи</Link>
                             </li>
                             <li key={'projects'}>
-                            <Link to='/projects/'>Проекты</Link>
+                                <Link to='/projects/'>Проекты</Link>
                             </li>
                             <li key={'todos'}>
-                            <Link to='/todo/'>Заметки</Link>
+                                <Link to='/todo/'>Заметки</Link>
                             </li>
                             <li key={'login'}>
-                            {this.is_authenticated() ? <button onClick={() => this.logout()}>Выйти</button> : <Link to='/login'>Авторизация</Link>}
+                                {this.is_authenticated() ? <button onClick={() => this.logout()}>Выйти</button> : <Link to='/login'>Авторизация</Link>}
                             </li>
                         </ul>
                     </nav>
@@ -130,7 +160,8 @@ class MainMenu extends React.Component {
                     <Switch>
                         <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
                         <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
-                        <Route exact path='/todo' component={() => <ToDoList todos={this.state.todos} />} />
+                        <Route exact path='/todo/create' component={() => <ToDoForm creators={this.state.users} projects={this.state.projects} createToDo={(todo_project, todo_creator, todo_short_description, todo_text) => this.createToDo(todo_project, todo_creator, todo_short_description, todo_text)} />} />
+                        <Route exact path='/todo' component={() => <ToDoList todos={this.state.todos} deleteToDo={(id) => this.deleteToDo(id)} />} />
                         <Route exoct path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
                         <Route component={NotFound404} />
                         <Redirect from='/' to='/users' />
