@@ -27,6 +27,8 @@ MarkupSafe==2.0.1
 mixer==7.0.6
 packaging==21.3
 promise==2.3
+psycopg2==2.8.6
+psycopg2-binary==2.9.3
 pycparser==2.21
 PyJWT==2.3.0
 pyparsing==3.0.8
