@@ -100,9 +100,19 @@ WSGI_APPLICATION = 'notebook.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
+    # development SQLITE3
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+    # strike POSTGRES
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'notebook_DB',
+        'USER': 'dante',
+        'PASSWORD': 'dante123456',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 
