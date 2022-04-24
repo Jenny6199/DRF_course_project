@@ -10,10 +10,23 @@ services:
       POSTGRES_USER: dante
       POSTGRES_PASSWORD: dante123456
       POSTGRES_DB: notebook_DB
-  adminer:
-    image: adminer:4.7.8-standalone
-    restart: always
+#  adminer:
+#    image: adminer:4.7.8-standalone
+#    restart: always
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - db
+  backend:
+    build:
+      context:
     ports:
       - 8080:8080
+    command: bash -c "
+      .wait-for-postgres.sh db
+      && python3 manage.py migrate
+      && python3 manage.py start_users_set
+      && python3 manage.py runserver 0.0.0.0:8000
+      "
     depends_on:
       - db
