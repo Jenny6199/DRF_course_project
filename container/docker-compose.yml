@@ -10,6 +10,7 @@ services:
       POSTGRES_USER: dante
       POSTGRES_PASSWORD: dante123456
       POSTGRES_DB: notebook_DB
+
   backend:
     build:
       context: .
@@ -19,7 +20,6 @@ services:
       ./wait-for-postgres.sh db
       && python3 manage.py migrate
       && python3 manage.py start_users_set
-      && python3 manage.py runserver 0.0.0.0:8000
-      "
+      && python3 manage.py runserver 0.0.0.0:8080"
     depends_on:
       - db

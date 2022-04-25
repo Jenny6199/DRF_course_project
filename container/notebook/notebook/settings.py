@@ -52,10 +52,11 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'drf_yasg',
-    'graphene_django',
     # created apps
     'users.apps.UsersConfig',
     'todo.apps.TodoConfig',
+    # shutdown apps
+    # 'graphene_django',
 ]
 
 MIDDLEWARE = [
