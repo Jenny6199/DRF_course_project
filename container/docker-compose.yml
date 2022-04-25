@@ -13,7 +13,7 @@ services:
 
   backend:
     build:
-    context: .
+      context: .
     expose:
       - 8080
     command: bash -c "
