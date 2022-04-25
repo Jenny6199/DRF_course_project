@@ -20,6 +20,6 @@ services:
       ./wait-for-postgres.sh db
       && python3 manage.py migrate
       && python3 manage.py start_users_set
-      && python3 manage.py runserver 0.0.0.0:8080"
+      && gunicorn notebook.wsgi -b 0.0.0.0:8080"
     depends_on:
       - db
