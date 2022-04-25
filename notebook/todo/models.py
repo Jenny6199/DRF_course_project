@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from django.db import models
 from users.models import User
 
@@ -39,9 +40,20 @@ class Project(models.Model):
         verbose_name='Активный статус'
         )
 
+    class Meta:
+        verbose_name = 'Проект'
+        verbose_name_plural = 'Проекты'
+        ordering = ['is_active'] 
+
     def __str__(self):
         """Возвращает строковое представление проекта"""
         return self.project_name
+
+    def count_todo(self):
+        """Подсчет количества заметок в проекте"""
+        pass
+
+
 
 
 class ToDo(models.Model):
@@ -49,7 +61,7 @@ class ToDo(models.Model):
     Модель заметки.
     -----------------------------------
     project (ForeignKey - Project), 
-    creator (one-to-one), 
+    creator (ForeignKey - User), 
     text (CharField), 
     created_at (DateTime), 
     updated_at (DateTime), 
@@ -61,7 +73,7 @@ class ToDo(models.Model):
         verbose_name='Проект',
         help_text='Заметка в составе проекта',
     )
-    creator = models.OneToOneField(
+    creator = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         verbose_name='Автор заметки',
@@ -91,3 +103,12 @@ class ToDo(models.Model):
         verbose_name='Заметка активна',
         help_text='Снимите флажок, чтобы сделать заметку неактивной',
     )
+        
+    class Meta:
+        verbose_name = 'Заметка'
+        verbose_name_plural = 'Заметки'
+        ordering = ['project']    
+
+    def __str__(self):
+        """Возвращает строковое представление заметки"""
+        return self.short_description
