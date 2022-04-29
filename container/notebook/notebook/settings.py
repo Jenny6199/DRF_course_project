@@ -14,6 +14,9 @@ from pathlib import Path
 from unittest import skip
 from datetime import timedelta
 from django.contrib import staticfiles
+import os
+
+from psycopg2 import DatabaseError
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -100,22 +103,27 @@ WSGI_APPLICATION = 'notebook.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    # development SQLITE3
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-    # strike POSTGRES
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'notebook_DB',
-        'USER': 'dante',
-        'PASSWORD': 'dante123456',
-        'HOST': 'db',
-        'PORT': '5432',
+if os.environ.get("IS_PRODUCTION"):
+    # postgresql for combat-serever
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'notebook_DB',
+            'USER': 'dante',
+            'PASSWORD': 'dante123456',
+            'HOST': 'db',
+            'PORT': '5432',
+        }
     }
-}
+else:
+    # sqlite3 for development-server
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
 
 AUTH_USER_MODEL = 'users.User'
 
