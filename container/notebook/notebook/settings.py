@@ -35,7 +35,7 @@ SECRET_KEY = dark_path
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -77,6 +77,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    '194.58.111.96',
 ]
 
 ROOT_URLCONF = 'notebook.urls'
