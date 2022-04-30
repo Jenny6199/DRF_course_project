@@ -35,7 +35,7 @@ SECRET_KEY = dark_path
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['194.58.11.96']
 
 
 # Application definition
