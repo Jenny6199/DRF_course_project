@@ -59,6 +59,7 @@
   border-radius: 10px;
   text-align: center;
   align-content: center;
+  background-color: rgb(120, 185, 23);
 }
 
 .header_mainblock {
@@ -70,4 +71,8 @@
 .footer_mainblock {
   background-color: green;
   min-height: 200px;
+}
+
+.border_1 {
+  border: 1px solid black;
 }

@@ -142,7 +142,7 @@ class MainMenu extends React.Component {
                     <h3>Главное меню</h3>
                     <BrowserRouter>
                         <nav>
-                            <ul>
+                            <ul class='border_1'>
                                 <li key={'users'}>
                                     <Link to='/users/'>Пользователи</Link>
                                 </li>
@@ -152,7 +152,7 @@ class MainMenu extends React.Component {
                                 <li key={'todos'}>
                                     <Link to='/todo/'>Заметки</Link>
                                 </li>
-                                <li key={'login'}>
+                                <li key={'login'} class='top_50'>
                                     {this.is_authenticated() ? <button onClick={() => this.logout()}>Выйти</button> : <Link to='/login'>Авторизация</Link>}
                                 </li>
                             </ul>
