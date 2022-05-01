@@ -15,7 +15,7 @@ const ProjectItem = ({project}) => {
 
 const ProjectList = ({projects}) => {
     return (
-        <table>
+        <table class='center'>
             <caption>
                 <h3>Проекты</h3>
             </caption>

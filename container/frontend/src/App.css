@@ -52,6 +52,10 @@
   margin-top: 50px;
 }
 
+.bottom_50 {
+  margin-bottom: 50px;
+}
+
 .href {
   min-height: 50px;
   width: 200px;
@@ -70,9 +74,16 @@
 
 .footer_mainblock {
   background-color: green;
-  min-height: 200px;
 }
 
 .border_1 {
   border: 1px solid black;
+}
+
+.wrapper {
+  min-height: 90vh;
+}
+
+footer {
+  min-height: 9vh;
 }

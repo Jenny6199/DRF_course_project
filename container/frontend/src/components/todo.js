@@ -21,7 +21,7 @@ const ToDoItem = ({todo, deleteToDo}) => {
 const ToDoList = ({todos, deleteToDo}) => {
     return (
         <div>
-            <table>
+            <table class='center'>
                 <caption>
                     <h3>Заметки</h3>
                 </caption>

@@ -138,26 +138,35 @@ class MainMenu extends React.Component {
     render() {
         return (
             <header>
-                <div class='header_mainblock'>
-                    <h3>Главное меню</h3>
+                <div class='header_mainblock wrapper'>
                     <BrowserRouter>
                         <nav>
-                            <ul class='border_1'>
-                                <li key={'users'}>
-                                    <Link to='/users/'>Пользователи</Link>
-                                </li>
-                                <li key={'projects'}>
-                                    <Link to='/projects/'>Проекты</Link>
-                                </li>
-                                <li key={'todos'}>
-                                    <Link to='/todo/'>Заметки</Link>
-                                </li>
-                                <li key={'login'} class='top_50'>
-                                    {this.is_authenticated() ? <button onClick={() => this.logout()}>Выйти</button> : <Link to='/login'>Авторизация</Link>}
-                                </li>
-                            </ul>
+                            <div class='flexbox center bottom_50'>
+                                <div class='href border_1 top_50'>
+                                    <h4>
+                                        <Link to='/users/'>Пользователи</Link>
+                                    </h4>
+                                </div>
+                                <div class='href border_1 top_50'>
+                                    <h4>
+                                        <Link to='/projects/'>Проекты</Link>
+                                    </h4>
+                                </div>
+                                <div class='href border_1 top_50'>
+                                    <h4>
+                                        <Link to='/todo/'>Заметки</Link>
+                                    </h4>
+                                </div>
+                            </div>
                         </nav>
-                        {this.is_authenticated() ? <div>{this.get_username_from_storage()}</div> : <div>-Гость-</div>}
+                        <div class='flexbox center border_1'>
+                            <h4 class='center top_50 bottom_50'>
+                                {this.is_authenticated() ? <div>{this.get_username_from_storage()}</div> : <div>Авторизируйтесь</div>}
+                            </h4>
+                            <div class='center top_50 bottom_50'>
+                                {this.is_authenticated() ? <button onClick={() => this.logout()}>Выйти</button> : <Link to='/login'>Авторизация</Link>}
+                            </div>
+                        </div>
                         <Switch>
                             <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
                             <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
