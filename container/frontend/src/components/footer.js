@@ -3,21 +3,21 @@ import React from 'react'
 
 const PageFooter = () => {
     return (
-        <div>
-            <h3>"Подвал" сайта</h3>
-            <br></br>
-            <ul>
-                <li key={'FAQ'}>
-                    <h5>Частые вопросы</h5>
-                </li>
-                <li key={'search'}>
-                    <h5>Поиск</h5>
-                </li>
-                <li key={'callback'}>
-                    <h5>Обратная связь</h5>
-                </li>
-            </ul>
-        </div>
+        <footer>
+            <div class='footer_mainblock'>
+                <div class='flexbox'>
+                    <div class='href center top_50'>
+                        <h4>Частые вопросы</h4>
+                    </div>
+                    <div class='href center top_50'>
+                        <h4>Поиск по сайту</h4>
+                    </div>
+                    <div class='href center top_50'>
+                        <h4>Обратная связь</h4>
+                    </div>
+                </div>
+            </div>
+        </footer>
     )
 }
 

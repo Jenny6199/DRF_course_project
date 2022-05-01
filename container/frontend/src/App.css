@@ -36,3 +36,38 @@
     transform: rotate(360deg);
   }
 }
+
+/* Создаем новые блоки */
+.flexbox {
+  display: flex;
+  align-content: center;
+  justify-content: space-around;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+.top_50 {
+  margin-top: 50px;
+}
+
+.href {
+  min-height: 50px;
+  width: 200px;
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: center;
+  align-content: center;
+}
+
+.header_mainblock {
+  background-color: burlywood;
+  min-height: 200px;
+  margin-bottom: 16px;
+}
+
+.footer_mainblock {
+  background-color: green;
+  min-height: 200px;
+}

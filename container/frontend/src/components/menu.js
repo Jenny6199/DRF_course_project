@@ -137,37 +137,39 @@ class MainMenu extends React.Component {
 
     render() {
         return (
-            <div>
-                <h3>Главное меню</h3>
-                <BrowserRouter>
-                    <nav>
-                        <ul>
-                            <li key={'users'}>
-                                <Link to='/users/'>Пользователи</Link>
-                            </li>
-                            <li key={'projects'}>
-                                <Link to='/projects/'>Проекты</Link>
-                            </li>
-                            <li key={'todos'}>
-                                <Link to='/todo/'>Заметки</Link>
-                            </li>
-                            <li key={'login'}>
-                                {this.is_authenticated() ? <button onClick={() => this.logout()}>Выйти</button> : <Link to='/login'>Авторизация</Link>}
-                            </li>
-                        </ul>
-                    </nav>
-                    {this.is_authenticated() ? <div>{this.get_username_from_storage()}</div> : <div>-Гость-</div>}
-                    <Switch>
-                        <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
-                        <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
-                        <Route exact path='/todo/create' component={() => <ToDoForm creators={this.state.users} projects={this.state.projects} createToDo={(todo_project, todo_creator, todo_short_description, todo_text) => this.createToDo(todo_project, todo_creator, todo_short_description, todo_text)} />} />
-                        <Route exact path='/todo' component={() => <ToDoList todos={this.state.todos} deleteToDo={(id) => this.deleteToDo(id)} />} />
-                        <Route exoct path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
-                        <Route component={NotFound404} />
-                        <Redirect from='/' to='/users' />
-                    </Switch>
-                </BrowserRouter>
-            </div>
+            <header>
+                <div class='header_mainblock'>
+                    <h3>Главное меню</h3>
+                    <BrowserRouter>
+                        <nav>
+                            <ul>
+                                <li key={'users'}>
+                                    <Link to='/users/'>Пользователи</Link>
+                                </li>
+                                <li key={'projects'}>
+                                    <Link to='/projects/'>Проекты</Link>
+                                </li>
+                                <li key={'todos'}>
+                                    <Link to='/todo/'>Заметки</Link>
+                                </li>
+                                <li key={'login'}>
+                                    {this.is_authenticated() ? <button onClick={() => this.logout()}>Выйти</button> : <Link to='/login'>Авторизация</Link>}
+                                </li>
+                            </ul>
+                        </nav>
+                        {this.is_authenticated() ? <div>{this.get_username_from_storage()}</div> : <div>-Гость-</div>}
+                        <Switch>
+                            <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
+                            <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
+                            <Route exact path='/todo/create' component={() => <ToDoForm creators={this.state.users} projects={this.state.projects} createToDo={(todo_project, todo_creator, todo_short_description, todo_text) => this.createToDo(todo_project, todo_creator, todo_short_description, todo_text)} />} />
+                            <Route exact path='/todo' component={() => <ToDoList todos={this.state.todos} deleteToDo={(id) => this.deleteToDo(id)} />} />
+                            <Route exoct path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
+                            <Route component={NotFound404} />
+                            <Redirect from='/' to='/users' />
+                        </Switch>
+                    </BrowserRouter>
+                </div>
+            </header>
         )
     }
 
