@@ -35,7 +35,10 @@ SECRET_KEY = dark_path
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['194.58.11.96']
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '194.58.11.96',
+]
 
 
 # Application definition
@@ -77,7 +80,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
-    '194.58.111.96',
+    'http://194.58.111.96:80',
 ]
 
 ROOT_URLCONF = 'notebook.urls'
@@ -104,26 +107,26 @@ WSGI_APPLICATION = 'notebook.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# if os.environ.get("IS_PRODUCTION"):
+if os.environ.get("IS_PRODUCTION"):
     # postgresql for combat-serever
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'notebook_DB',
-        'USER': 'dante',
-        'PASSWORD': 'dante123456',
-        'HOST': 'db',
-        'PORT': '5432',
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'notebook_DB',
+            'USER': 'dante',
+            'PASSWORD': 'dante123456',
+            'HOST': 'db',
+            'PORT': '5432',
+        }
     }
-}
-# else:
+else:
     # sqlite3 for development-server
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 AUTH_USER_MODEL = 'users.User'
