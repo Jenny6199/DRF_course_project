@@ -81,9 +81,13 @@
 }
 
 .wrapper {
-  min-height: 90vh;
+  min-height: 85vh;
 }
 
 footer {
   min-height: 9vh;
+}
+
+table {
+  padding: 0px 25px;
 }
