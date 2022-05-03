@@ -9,7 +9,7 @@ const ToDoItem = ({todo, deleteToDo}) => {
             <td>{todo.creator}</td>
             <td>{todo.text}</td>
             <td>{todo.short_description}</td>
-            <td></td>
+            <td>{todo.is_active}</td>
             <td>{todo.updated_at}</td>
             <td>
                 <button onClick={() => deleteToDo(todo.id)} type="button">Удалить</button>
@@ -21,7 +21,7 @@ const ToDoItem = ({todo, deleteToDo}) => {
 const ToDoList = ({todos, deleteToDo}) => {
     return (
         <div>
-            <table class='center'>
+            <table className='center'>
                 <caption>
                     <h3>Заметки</h3>
                 </caption>
@@ -31,7 +31,7 @@ const ToDoList = ({todos, deleteToDo}) => {
                         <td>Создатель</td>
                         <td>Текст</td>
                         <td>Краткое описание</td>
-                        <td></td>
+                        <td>Активна</td>
                         <td>Дата обновления</td>
                     </tr>
                 </thead>

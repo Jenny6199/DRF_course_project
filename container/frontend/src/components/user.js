@@ -15,7 +15,7 @@ import React from 'react';
 
 const UserList = ({users}) => {
     return (
-        <table class='center'>
+        <table className='center'>
             <caption>
                 <h3>Пользователи</h3>
             </caption>

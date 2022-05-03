@@ -168,13 +168,13 @@ class MainMenu extends React.Component {
                             </div>
                         </div>
                         <Switch>
-                            <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
-                            <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
-                            <Route exact path='/todo/create' component={() => <ToDoForm creators={this.state.users} projects={this.state.projects} createToDo={(todo_project, todo_creator, todo_short_description, todo_text) => this.createToDo(todo_project, todo_creator, todo_short_description, todo_text)} />} />
-                            <Route exact path='/todo' component={() => <ToDoList todos={this.state.todos} deleteToDo={(id) => this.deleteToDo(id)} />} />
-                            <Route exoct path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
-                            <Route component={NotFound404} />
-                            <Redirect from='/' to='/users' />
+                            <Route exact path='/users' key={'users-list'} component={() => <UserList users={this.state.users} />} />
+                            <Route exact path='/projects' key={'project-list'} component={() => <ProjectList projects={this.state.projects} />} />
+                            <Route exact path='/todo/create' key={'todo-create'} component={() => <ToDoForm creators={this.state.users} projects={this.state.projects} createToDo={(todo_project, todo_creator, todo_short_description, todo_text) => this.createToDo(todo_project, todo_creator, todo_short_description, todo_text)} />} />
+                            <Route exact path='/todo' key={'todo-list'} component={() => <ToDoList todos={this.state.todos} deleteToDo={(id) => this.deleteToDo(id)} />} />
+                            <Route exoct path='/login' key={'login-page'} component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
+                            <Route key={'not-found'} component={NotFound404} />
+                            <Redirect key={'redirct'} from='/' to='/users' />
                         </Switch>
                     </BrowserRouter>
                 </div>
