@@ -60,16 +60,32 @@ class ToDoForm extends React.Component {
                 
                 <div className="form-group" key={'short_description_field'}>
                     <label> Краткое описание, хэштэги: 
-                        <input type="text" className="form-control" name="todo_short_description" value={this.state.short_description} onChange={(event) => this.handleChange(event)}/>
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            name="todo_short_description" 
+                            value={this.state.short_description} 
+                            onChange={(event) => this.handleChange(event)}
+                        />
                     </label>
                 </div>
 
                 <div className="form-group" key={'todo_text_field'}>
                     <label> Текст заметки: 
-                        <input type="text" className="form-control" name="todo_text" value={this.state.user} onChange={(event) => this.handleChange(event)}/>
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            name="todo_text" 
+                            value={this.state.user} 
+                            onChange={(event) => this.handleChange(event)}
+                        />
                     </label>
                 </div>
-                <input key={'submit_todo'} type="submit" className="btn btn-primary" value="Сохранить заметку" />
+                <input 
+                    key={'submit_todo'} 
+                    type="submit" 
+                    className="btn btn-primary top_50" 
+                    value="Сохранить заметку" />
             </form>
         );
     }

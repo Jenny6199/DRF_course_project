@@ -137,10 +137,10 @@ class MainMenu extends React.Component {
 
     render() {
         return (
-            <header>
+            <header key={'header'}>
                 <div className='header_mainblock wrapper'>
-                    <BrowserRouter>
-                        <nav>
+                    <BrowserRouter key={'router'}>
+                        <nav key={'navigation'}>
                             <div className='flexbox center bottom_50'>
                                 <div className='href border_1 top_50'>
                                     <h4>
@@ -159,29 +159,53 @@ class MainMenu extends React.Component {
                                 </div>
                             </div>
                         </nav>
-                        <div className='flexbox center border_1'>
+                        <div className='flexbox center border_1' key={'blockAuth'}>
                             <h4 className='center top_50 bottom_50'>
-                                {this.is_authenticated() ? <div>{this.get_username_from_storage()}</div> : <div>Авторизируйтесь</div>}
+                                {this.is_authenticated() ? <div>{this.get_username_from_storage()}</div>:<div>Авторизируйтесь</div>}
                             </h4>
                             <div className='center top_50 bottom_50'>
-                                {this.is_authenticated() ? <button onClick={() => this.logout()}>Выйти</button> : <Link to='/login'>Авторизация</Link>}
+                                {this.is_authenticated() ? <button onClick={() => this.logout()}>Выйти</button>:<Link to='/login'>Авторизация</Link>}
                             </div>
                         </div>
-                        <Switch>
-                            <Route exact path='/users' key={'users-list'} component={() => <UserList users={this.state.users} />} />
-                            <Route exact path='/projects' key={'project-list'} component={() => <ProjectList projects={this.state.projects} />} />
-                            <Route exact path='/todo/create' key={'todo-create'} component={() => <ToDoForm creators={this.state.users} projects={this.state.projects} createToDo={(todo_project, todo_creator, todo_short_description, todo_text) => this.createToDo(todo_project, todo_creator, todo_short_description, todo_text)} />} />
-                            <Route exact path='/todo' key={'todo-list'} component={() => <ToDoList todos={this.state.todos} deleteToDo={(id) => this.deleteToDo(id)} />} />
-                            <Route exoct path='/login' key={'login-page'} component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
-                            <Route key={'not-found'} component={NotFound404} />
-                            <Redirect key={'redirct'} from='/' to='/users' />
+                        <Switch key={'switch'}>
+                            <Route 
+                                exact path='/users' 
+                                key={'users-list'} 
+                                component={() => <UserList users={this.state.users}/>} 
+                            />
+                            <Route 
+                                exact path='/projects' 
+                                key={'project-list'} 
+                                component={() => <ProjectList projects={this.state.projects} />} 
+                            />
+                            <Route 
+                                exact path='/todo/create' 
+                                key={'todo-create'} 
+                                component={() => <ToDoForm creators={this.state.users} projects={this.state.projects} createToDo={(todo_project, todo_creator, todo_short_description, todo_text) => this.createToDo(todo_project, todo_creator, todo_short_description, todo_text)} />} />
+                            <Route 
+                                exact path='/todo' 
+                                key={'todo-list'} 
+                                component={() => <ToDoList todos={this.state.todos} deleteToDo={(id) => this.deleteToDo(id)} />} 
+                            />
+                            <Route 
+                                exact path='/login' 
+                                key={'login-page'} 
+                                component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} 
+                                />
+                            <Route 
+                                key={'not-found'} 
+                                component={NotFound404} 
+                            />
+                            <Redirect 
+                                key={'redirect'} 
+                                from='/' to='/users' 
+                            />
                         </Switch>
                     </BrowserRouter>
                 </div>
             </header>
         )
     }
-
 }
 
 export default MainMenu;
