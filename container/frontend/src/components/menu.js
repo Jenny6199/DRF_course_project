@@ -138,32 +138,32 @@ class MainMenu extends React.Component {
     render() {
         return (
             <header>
-                <div class='header_mainblock wrapper'>
+                <div className='header_mainblock wrapper'>
                     <BrowserRouter>
                         <nav>
-                            <div class='flexbox center bottom_50'>
-                                <div class='href border_1 top_50'>
+                            <div className='flexbox center bottom_50'>
+                                <div className='href border_1 top_50'>
                                     <h4>
                                         <Link to='/users/'>Пользователи</Link>
                                     </h4>
                                 </div>
-                                <div class='href border_1 top_50'>
+                                <div className='href border_1 top_50'>
                                     <h4>
                                         <Link to='/projects/'>Проекты</Link>
                                     </h4>
                                 </div>
-                                <div class='href border_1 top_50'>
+                                <div className='href border_1 top_50'>
                                     <h4>
                                         <Link to='/todo/'>Заметки</Link>
                                     </h4>
                                 </div>
                             </div>
                         </nav>
-                        <div class='flexbox center border_1'>
-                            <h4 class='center top_50 bottom_50'>
+                        <div className='flexbox center border_1'>
+                            <h4 className='center top_50 bottom_50'>
                                 {this.is_authenticated() ? <div>{this.get_username_from_storage()}</div> : <div>Авторизируйтесь</div>}
                             </h4>
-                            <div class='center top_50 bottom_50'>
+                            <div className='center top_50 bottom_50'>
                                 {this.is_authenticated() ? <button onClick={() => this.logout()}>Выйти</button> : <Link to='/login'>Авторизация</Link>}
                             </div>
                         </div>
