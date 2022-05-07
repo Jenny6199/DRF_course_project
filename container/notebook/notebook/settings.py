@@ -80,7 +80,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
-    'http://194.58.111.96',
+    'http://194.58.111.96:8000',
 ]
 
 ROOT_URLCONF = 'notebook.urls'
