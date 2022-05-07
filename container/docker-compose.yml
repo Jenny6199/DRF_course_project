@@ -16,6 +16,8 @@ services:
       context: .
     expose:
       - 8080
+    environment:
+      - IS_PRODUCTION: True
     command: bash -c "
       ./wait-for-postgres.sh db
       && python3 manage.py migrate
@@ -23,6 +25,7 @@ services:
       && gunicorn notebook.wsgi -b 0.0.0.0:8080"
     depends_on:
       - db
+      
   nginx:
     build: ./nginx
     ports:
