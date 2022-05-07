@@ -30,7 +30,7 @@ class MainMenu extends React.Component {
 
     deleteToDo(id) {
         const headers = this.get_headers()
-        axios.delete(`http://127.0.0.1:8000/api/todo/${id}/`, {headers})
+        axios.delete(`http://194.58.111.96/api/todo/${id}/`, {headers})
           .then(response => {
             this.setState({todo: this.state.todos.filter((item) => item.id !== id)})
         }).catch(error => console.log(error))
@@ -45,7 +45,7 @@ class MainMenu extends React.Component {
             text: todo_text, 
         }
         console.log(data)
-        axios.post(`http://127.0.0.1:8000/api/todo/`, data, {headers})
+        axios.post(`http://194.58.111.96/api/todo/`, data, {headers})
             .then(response => {
                 console.log(response.data)
                 let new_todo = response.data
@@ -57,7 +57,7 @@ class MainMenu extends React.Component {
 
 
     get_path(){
-        return 'http://127.0.0.1:8000/'
+        return 'http://194.58.111.96/'
     }
 
     is_authenticated() {
