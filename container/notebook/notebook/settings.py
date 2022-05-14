@@ -14,6 +14,9 @@ from pathlib import Path
 from unittest import skip
 from datetime import timedelta
 from django.contrib import staticfiles
+import os
+
+from psycopg2 import DatabaseError
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,7 +35,10 @@ SECRET_KEY = dark_path
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'https://194.58.11.96',
+]
 
 
 # Application definition
@@ -52,10 +58,11 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'drf_yasg',
-    'graphene_django',
     # created apps
     'users.apps.UsersConfig',
     'todo.apps.TodoConfig',
+    # shutdown apps
+    # 'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +80,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'http://194.58.111.96:8000',
 ]
 
 ROOT_URLCONF = 'notebook.urls'
@@ -99,12 +107,27 @@ WSGI_APPLICATION = 'notebook.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# if os.environ.get("IS_PRODUCTION"):
+    # postgresql for combat-serever
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'notebook_DB',
+        'USER': 'dante',
+        'PASSWORD': 'dante123456',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
+# else:
+    # sqlite3 for development-server
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+
 
 AUTH_USER_MODEL = 'users.User'
 

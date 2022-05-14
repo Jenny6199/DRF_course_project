@@ -15,16 +15,23 @@ const ProjectItem = ({project}) => {
 
 const ProjectList = ({projects}) => {
     return (
-        <table>
+        <table className='center'>
             <caption>
                 <h3>Проекты</h3>
             </caption>
-            <th>Название проекта</th>
-            <th>Адрес проекта</th>
-            <th>Участники</th>
-            <th>Дата создания</th>
-            <th>Активен</th>
-            {projects.map((project) => <ProjectItem project={project} />)}
+            <thead key={'thead_projects'}>
+                <tr>
+                    <th>Название проекта</th>
+                    <th>Адрес проекта</th>
+                    <th>Участники</th>
+                    <th>Дата создания</th>
+                    <th>Активен</th>
+                </tr>
+            </thead>
+            <tbody>
+                {projects.map((project) => <ProjectItem project={project} />)}
+            </tbody>
+
         </table>
     )
 }
